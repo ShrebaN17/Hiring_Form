@@ -13,7 +13,7 @@ const supabase = (SUPABASE_URL && SUPABASE_ANON_KEY)
   : null;
 
 // ──────────────────────────────────────────
-// 2. DATA CONSTANTS
+// 2. DATA CONSTANTS (Restored from your file)
 // ──────────────────────────────────────────
 const ROLES = [
   { id: "ai-ml", label: "AI / ML Developer", icon: "◐", desc: "Build the brains" },
@@ -38,27 +38,27 @@ const TEAM_MEMBERS = [
 
 const ROLE_QUESTIONS = {
   "ai-ml": [
-    { id: "ml_experience", label: "Experience level with ML / AI?", type: "select", options: ["Beginner", "Intermediate", "Advanced", "Expert"] },
-    { id: "ml_stack", label: "Tools / frameworks used?", type: "multi", options: ["Python", "TensorFlow", "PyTorch", "LangChain", "OpenAI API", "Other"] },
-    { id: "ml_project", label: "Describe an AI project you've built.", type: "textarea", placeholder: "e.g. RAG chatbot..." },
+    { id: "ml_experience", label: "What's your experience level with ML / AI?", type: "select", options: ["Just getting started", "Worked on a few projects", "Built & deployed models", "Research-level experience"] },
+    { id: "ml_stack", label: "Which tools / frameworks have you used?", type: "multi", options: ["Python", "TensorFlow", "PyTorch", "Hugging Face", "LangChain", "OpenAI API", "scikit-learn", "Other"] },
+    { id: "ml_project", label: "Briefly describe an AI/ML project you've worked on.", type: "textarea", placeholder: "e.g. I built a RAG chatbot using LangChain..." },
   ],
   dev: [
-    { id: "dev_stack", label: "Primary tech stack?", type: "multi", options: ["React/Next.js", "Node/Express", "Python/Django", "PostgreSQL", "Tailwind"] },
-    { id: "dev_github", label: "GitHub / Portfolio link.", type: "textarea", placeholder: "github.com/..." },
-    { id: "dev_challenge", label: "Hardest bug you fixed?", type: "textarea", placeholder: "Brief description..." },
+    { id: "dev_stack", label: "What is your primary tech stack?", type: "multi", options: ["React / Next.js", "Vue / Nuxt", "Node.js / Express", "Python / Django", "Supabase / Firebase", "PostgreSQL / SQL", "Tailwind CSS", "TypeScript"] },
+    { id: "dev_github", label: "Share your GitHub or Portfolio link.", type: "textarea", placeholder: "e.g. github.com/johnthomas" },
+    { id: "dev_challenge", label: "What is the hardest bug you fixed or feature you built?", type: "textarea", placeholder: "e.g. I optimized a slow API query by indexing..." },
   ],
   tester: [
-    { id: "test_type", label: "Testing preference?", type: "select", options: ["UI/UX", "Functional", "Performance", "Security"] },
-    { id: "test_devices", label: "Devices available?", type: "multi", options: ["Windows", "Mac", "iPhone", "Android"] },
-    { id: "test_bug", label: "Describe a bug you found recently.", type: "textarea", placeholder: "e.g. Instagram crash..." },
+    { id: "test_type", label: "What kind of testing do you enjoy most?", type: "select", options: ["UI / UX (Design flaws)", "Functional (Logic bugs)", "Performance (Speed / Load)", "Security (Vulnerabilities)", "I just like breaking things"] },
+    { id: "test_devices", label: "What devices can you test on? (Pick all that apply)", type: "multi", options: ["Windows Laptop/PC", "MacBook / Mac", "iPhone (iOS)", "Android Phone", "iPad / Tablet"] },
+    { id: "test_bug", label: "Describe a critical bug you found in an app you use.", type: "textarea", placeholder: "e.g. I found that clicking 'Back' twice on Instagram crashed the app..." },
   ],
 };
 
 const COMMON_QUESTIONS = [
-  { id: "why_interested", label: "Why Aakaar.io?", type: "textarea", placeholder: "I want to build..." },
-  { id: "availability", label: "Weekly commitment?", type: "select", options: ["1–2 hours", "3–5 hours", "5–10 hours", "10+ hours"] },
-  { id: "hear_about", label: "How did you hear about us?", type: "select", options: ["Friend", "Social Media", "Campus", "Other"] },
-  { id: "extra", label: "Anything else? (optional)", type: "textarea", placeholder: "Design skills, etc.", optional: true },
+  { id: "why_interested", label: "Why does this product interest you?", type: "textarea", placeholder: "e.g. I love AI tools and want to help..." },
+  { id: "availability", label: "How much time can you commit (per week)?", type: "select", options: ["1–2 hours", "3–5 hours", "5–10 hours", "10+ hours"] },
+  { id: "hear_about", label: "How did you hear about us?", type: "select", options: ["Friend / Word of mouth", "Social media", "Campus notice", "Email", "Other"] },
+  { id: "extra", label: "Anything else? (optional)", type: "textarea", placeholder: "e.g. I also do graphic design...", optional: true },
 ];
 
 // ──────────────────────────────────────────
@@ -95,7 +95,7 @@ function SelectField({ value, onChange, options, hasError }) {
   return (
     <div style={{ position: "relative" }}>
       <select value={value} onChange={(e) => onChange(e.target.value)} style={{ ...inputStyle(hasError), cursor: "pointer", paddingRight: 40 }}>
-        <option value="" disabled style={{ color: "var(--text-muted)" }}>Select...</option>
+        <option value="" disabled style={{ color: "var(--text-muted)" }}>Choose an option</option>
         {options.map((o) => (<option key={o} value={o} style={{ background: "var(--bg)", color: "var(--text)" }}>{o}</option>))}
       </select>
       <span style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)", pointerEvents: "none", fontSize: 12 }}>▼</span>
