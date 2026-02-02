@@ -61,7 +61,7 @@ const TEAM_MEMBERS = [
     name: "Awani Rashmi", 
     role: "Frontend Developer", 
     bio: "Responsible for crafting intuitive, clean, and functional user interfaces. Focused on translating complex systems into simple, usable experiences that feel calm, reliable, and easy to navigate for non-technical users.", 
-    img: "/team/member5.jpg" // Leave empty to show initials
+    img: "/team/member6.jpg" // Leave empty to show initials
   },
   { 
     name: "Ghanan Dhamija", 
