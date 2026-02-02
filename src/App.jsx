@@ -344,9 +344,9 @@ function FixedHeader({ onNavigate, theme, toggleTheme }) {
         </div>
         <div className="header-right">
           <div className="social-links desktop-only">
-            <a href="#" className="social-icon"><InstagramIcon /></a>
-            <a href="#" className="social-icon"><LinkedinIcon /></a>
-            <a href="#" className="social-icon"><TwitterIcon /></a>
+            <a href="https://www.instagram.com/aakaar.io/" className="social-icon"><InstagramIcon /></a>
+            <a href="https://www.linkedin.com/company/aakaario/" className="social-icon"><LinkedinIcon /></a>
+            <a href="https://x.com/aakaario" className="social-icon"><TwitterIcon /></a>
           </div>
           {/* THEME TOGGLE BUTTON - Now triggers Rick Roll */}
           <button className="icon-btn" onClick={toggleTheme} aria-label="Toggle Theme">
