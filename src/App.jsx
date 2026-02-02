@@ -9,11 +9,11 @@ const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 // Fail-safe client creation
 const supabase = (SUPABASE_URL && SUPABASE_ANON_KEY) 
-  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) 
   : null;
 
 // ──────────────────────────────────────────
-// 2. DATA CONSTANTS (Restored Exactly)
+// 2. DATA CONSTANTS
 // ──────────────────────────────────────────
 const ROLES = [
   { id: "ai-ml", label: "AI / ML Developer", icon: "◐", desc: "Build the brains" },
@@ -82,7 +82,8 @@ const inputStyle = (hasError) => ({
 function Label({ children, optional }) {
   return (
     <label style={{ display: "block", fontSize: 12, color: "var(--text-sub)", letterSpacing: 1.2, textTransform: "uppercase", marginBottom: 8, textAlign: "left" }}>
-      {children} {optional && <span style={{ color: "var(--text-muted)", textTransform: "none", letterSpacing: 0, fontSize: 11 }}>(optional)</span>}
+      {children}{" "}
+      {optional && <span style={{ color: "var(--text-muted)", textTransform: "none", letterSpacing: 0, fontSize: 11 }}>(optional)</span>}
     </label>
   );
 }
@@ -222,8 +223,6 @@ function AdminPanel() {
       alert(error.message); 
       setLoading(false); 
     } else { 
-      // Session updates automatically via onAuthStateChange in typical apps, 
-      // but manual reload here ensures cleaner flow if listeners lag.
       window.location.reload(); 
     }
   };
@@ -491,15 +490,26 @@ function Landing({ onStart }) {
         <h1 style={rv(1)} className="hero-title">Help us build<br /><span className="highlight">the future</span><br />of the web.</h1>
         <p style={rv(2)} className="hero-desc">We're an early-stage team building an AI product that lets anyone generate and launch websites — no code required.</p>
         <div style={{ ...rv(3) }} className="role-grid">
-          {ROLES.map((r) => (<div key={r.id} className="role-card"><div className="role-head">{r.icon} {r.label}</div><div className="role-desc">{r.desc}</div></div>))}
+          {ROLES.map((r) => (
+            <div key={r.id} className="role-card">
+              <div className="role-head">{r.icon} {r.label}</div>
+              <div className="role-desc">{r.desc}</div>
+            </div>
+          ))}
         </div>
+
         <div style={rv(4)}>
-          <button onClick={onStart} className="primary-btn">Apply now <span style={{ fontSize: 18 }}>→</span></button>
+          <button onClick={onStart} className="primary-btn">
+            Apply now <span style={{ fontSize: 18 }}>→</span>
+          </button>
           <p className="micro-text">Takes ~5 minutes · No résumés</p>
         </div>
+
+        {/* NEWSLETTER (Landing Page Version) - INCREASED GAP */}
         <div style={{ ...rv(5), marginTop: 60, paddingTop: 40, paddingBottom: 80, borderTop: "1px solid var(--border)" }}>
           <Newsletter />
         </div>
+
       </div>
     </div>
   );
@@ -581,12 +591,27 @@ function FormPage({ onBack }) {
             <div className="field-group"><Label>Email</Label><input type="email" value={basics.email} placeholder="e.g. john@example.com" onChange={e=>setBasics({...basics, email:e.target.value})} style={inputStyle(!!errors.email)} /><ErrorMsg msg={errors.email}/></div>
           </div>}
           
-          {step === 1 && <div className="fade-in"><h2 className="section-title">Pick a role</h2><div className="role-list">{ROLES.map(r=><button key={r.id} onClick={()=>{setSelectedRole(r.id);setRoleAnswers({})}} className={`role-btn ${selectedRole===r.id?"active":""}`}><span className="role-icon">{r.icon}</span><div><div className="role-name">{r.label}</div><div className="role-sub">{r.desc}</div></div></button>)}</div><ErrorMsg msg={errors.role}/></div>}
+          {step === 1 && <div className="fade-in">
+            <h2 className="section-title">Pick a role</h2>
+            <div className="role-list">
+              {ROLES.map(r=>(
+                <button key={r.id} onClick={()=>{setSelectedRole(r.id);setRoleAnswers({})}} className={`role-btn ${selectedRole===r.id?"active":""}`}>
+                  <span className="role-icon">{selectedRole===r.id?"✓":r.icon}</span>
+                  <div style={{ textAlign: "left" }}>
+                    <div className="role-name">{r.label}</div>
+                    <div className="role-sub">{r.desc}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+            <ErrorMsg msg={errors.role}/>
+          </div>}
+          
           {step === 2 && <div className="fade-in"><h2 className="section-title">Questions</h2>{(ROLE_QUESTIONS[selectedRole]||[]).map(q=><QuestionBlock key={q.id} q={q} value={roleAnswers[q.id]} onChange={v=>setRoleAnswers({...roleAnswers, [q.id]:v})} error={errors[q.id]}/>)}</div>}
           {step === 3 && <div className="fade-in"><h2 className="section-title">Final details</h2>{COMMON_QUESTIONS.map(q=><QuestionBlock key={q.id} q={q} value={commonAnswers[q.id]} onChange={v=>setCommonAnswers({...commonAnswers, [q.id]:v})} error={errors[q.id]}/>)}</div>}
           {step === 4 && <div className="fade-in" style={{textAlign:'center'}}><div className="success-badge">✓</div><h2 className="section-title">You're in!</h2><p className="hero-desc">We'll email <strong>{basics.email}</strong> soon.</p><div style={{marginTop:40}}><Newsletter compact={true}/></div></div>}
           
-          {/* NAVIGATION BUTTONS - Reverted Back button to 'text-btn' for alignment */}
+          {/* NAVIGATION BUTTONS */}
           {step < 4 && <div className="nav-row"><button onClick={()=>step===0?onBack():back()} className="text-btn">← Back</button><button onClick={()=>step===3?handleSubmit():next()} className="primary-btn" disabled={isSubmitting}>{isSubmitting?"Sending...":step===3?"Submit":"Continue"}</button></div>}
         </div>
       </div>
