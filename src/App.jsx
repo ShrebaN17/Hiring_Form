@@ -31,7 +31,7 @@ const TEAM_MEMBERS = [
     name: "Priyangshu Dey", 
     role: "Co-Founder / CEO", 
     bio: "Focused on building reliable, trust-first products that solve real operational problems. Leads product direction, vision, and long-term strategy, with hands-on involvement in shaping how users experience the platform from first interaction to deployment.", 
-    img: "public/team/priyangshu.jpg" // <--- REPLACE THIS WITH YOUR IMAGE PATH
+    img: "public/team/priyanshu.jpg" // <--- REPLACE THIS WITH YOUR IMAGE PATH
   },
   { 
     name: "Arman Das", 
