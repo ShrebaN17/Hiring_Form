@@ -24,14 +24,14 @@ const ROLES = [
 const YEAR_OPTIONS = ["In School", "1st Year", "2nd Year", "3rd Year", "4th Year", "Graduated"];
 const COUNTRY_CODES = ["+91", "+1", "+44", "+61", "+81", "+49", "+33", "+86"];
 
-// TEAM DATA - Preserved your entries + added 'linkedin' field
+// TEAM DATA
 const TEAM_MEMBERS = [
   { 
     name: "Priyangshu Dey", 
     role: "Co-Founder / CEO", 
     bio: "Focused on building reliable, trust-first products that solve real operational problems. Leads product direction, vision, and long-term strategy.", 
     img: "/team/member1.jpg",
-    linkedin: "https://www.linkedin.com/in/priyangshu-dey-371608275/" // <--- Add actual link here
+    linkedin: "https://www.linkedin.com/in/priyangshu-dey-371608275/" 
   },
   { 
     name: "Arman Das", 
@@ -58,7 +58,7 @@ const TEAM_MEMBERS = [
     name: "Arkajyoti Roy", 
     role: "Frontend Developer", 
     bio: "Responsible for crafting intuitive, clean, and functional user interfaces.", 
-    img: "/team/member4.jpg", // Note: Duplicate image path from your file
+    img: "/team/member4.jpg", 
     linkedin: "#"
   },
   { 
@@ -223,15 +223,13 @@ const SunIcon = () => (<svg width="20" height="20" viewBox="0 0 24 24" fill="non
 const MoonIcon = () => (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>);
 
 // ──────────────────────────────────────────
-// 4. ADMIN PANEL (FIXED)
+// 4. ADMIN PANEL
 // ──────────────────────────────────────────
 function AdminPanel() {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
   const [applicants, setApplicants] = useState([]);
   const [expandedId, setExpandedId] = useState(null);
-  
-  // Login State
   const [authEmail, setAuthEmail] = useState("");
   const [authPass, setAuthPass] = useState("");
 
@@ -266,14 +264,11 @@ function AdminPanel() {
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!supabase) return alert("Supabase keys are missing in .env!");
-    
     setLoading(true);
-    
     const { error } = await supabase.auth.signInWithPassword({ 
       email: authEmail, 
       password: authPass 
     });
-    
     if (error) { 
       alert(error.message); 
       setLoading(false); 
@@ -296,24 +291,8 @@ function AdminPanel() {
         <div className="glass-box" style={{ maxWidth: 400, width: '100%', textAlign: 'center' }}>
           <h2 className="section-title">Admin Access</h2>
           <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
-            <input 
-              className="login-input" 
-              type="email" 
-              placeholder="Admin Email" 
-              value={authEmail}
-              onChange={(e) => setAuthEmail(e.target.value)}
-              required 
-              style={inputStyle(false)} 
-            />
-            <input 
-              className="login-input" 
-              type="password" 
-              placeholder="Password" 
-              value={authPass}
-              onChange={(e) => setAuthPass(e.target.value)}
-              required 
-              style={inputStyle(false)} 
-            />
+            <input className="login-input" type="email" placeholder="Admin Email" value={authEmail} onChange={(e) => setAuthEmail(e.target.value)} required style={inputStyle(false)} />
+            <input className="login-input" type="password" placeholder="Password" value={authPass} onChange={(e) => setAuthPass(e.target.value)} required style={inputStyle(false)} />
             <button type="submit" className="primary-btn" disabled={loading} style={{ justifyContent: 'center' }}>
               {loading ? "Authenticating..." : "Login →"}
             </button>
@@ -343,9 +322,7 @@ function AdminPanel() {
                   </div>
                   <span style={{ fontSize: 12, opacity: 0.4 }}>{new Date(app.created_at).toLocaleDateString()}</span>
                 </div>
-                
                 <div style={{ fontSize: 13, opacity: 0.7, marginBottom: 10 }}>{app.email}</div>
-
                 {expandedId === app.id && (
                   <div style={{ marginTop: 15, paddingTop: 15, borderTop: '1px solid var(--border)', fontSize: 14, lineHeight: 1.6, animation: 'fadeIn 0.3s ease' }}>
                     <p><strong>Phone:</strong> {app.phone}</p>
@@ -360,7 +337,6 @@ function AdminPanel() {
                         ))}
                       </div>
                     </div>
-                    
                     <div style={{ marginTop: 15 }}>
                       <strong style={{ display:'block', marginBottom: 5, fontSize: 12, opacity: 0.5, textTransform: 'uppercase' }}>Common</strong>
                       {app.common_answers && Object.entries(app.common_answers).map(([k, v]) => (
@@ -403,7 +379,6 @@ function FixedHeader({ onNavigate, theme, toggleTheme }) {
             <a href="https://www.linkedin.com/company/aakaario/" className="social-icon"><LinkedinIcon /></a>
             <a href="https://x.com/aakaario" className="social-icon"><TwitterIcon /></a>
           </div>
-          {/* THEME TOGGLE BUTTON - Now triggers Rick Roll */}
           <button className="icon-btn" onClick={toggleTheme} aria-label="Toggle Theme">
             {theme === "dark" ? <SunIcon /> : <MoonIcon />}
           </button>
@@ -753,8 +728,10 @@ export default function App() {
         </div>
       )}
 
-      <div style={{ position: "fixed", top: "-100px", right: "-100px", width: "400px", height: "400px", background: "rgba(255,90,60,0.1)", filter: "blur(100px)", borderRadius: "50%", zIndex: 0 }} />
-      <div style={{ position: "fixed", bottom: "-100px", left: "-100px", width: "300px", height: "300px", background: "rgba(60,60,200,0.1)", filter: "blur(100px)", borderRadius: "50%", zIndex: 0 }} />
+      {/* NEW ANIMATED BACKGROUND BLOBS */}
+      <div style={{ position: "fixed", top: "20%", right: "-100px", width: "500px", height: "500px", background: "rgba(255,90,60,0.08)", filter: "blur(120px)", borderRadius: "50%", zIndex: 0, animation: "float 10s infinite ease-in-out" }} />
+      <div style={{ position: "fixed", bottom: "-100px", left: "-100px", width: "400px", height: "400px", background: "rgba(60,60,200,0.08)", filter: "blur(120px)", borderRadius: "50%", zIndex: 0, animation: "float 14s infinite ease-in-out reverse" }} />
+      <div style={{ position: "fixed", top: "40%", left: "40%", width: "300px", height: "300px", background: "rgba(120,50,200,0.06)", filter: "blur(100px)", borderRadius: "50%", zIndex: 0, animation: "float 12s infinite ease-in-out 2s" }} />
       
       <CursorBlob />
       
@@ -780,6 +757,15 @@ function GlobalStyles({ theme }) {
   return (
     <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;800&display=swap');
+        
+        /* ANIMATION FOR FLOATING BLOBS */
+        @keyframes float {
+          0% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+
         :root {
           --bg: #0c0c0e; --text: #ffffff; --text-sub: rgba(255,255,255,0.5); --text-muted: rgba(255,255,255,0.3);
           --border: rgba(255,255,255,0.1); --glass-bg: rgba(255,255,255,0.03); --glass-border: rgba(255,255,255,0.08);
