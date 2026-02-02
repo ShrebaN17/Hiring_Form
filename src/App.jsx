@@ -241,7 +241,7 @@ const SunIcon = () => (<svg width="20" height="20" viewBox="0 0 24 24" fill="non
 const MoonIcon = () => (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>);
 
 // ──────────────────────────────────────────
-// 4. ADMIN PANEL
+// 4. ADMIN PANEL (UPDATED - LOGS & STATUS)
 // ──────────────────────────────────────────
 function AdminPanel() {
   const [session, setSession] = useState(null);
@@ -250,6 +250,9 @@ function AdminPanel() {
   const [expandedId, setExpandedId] = useState(null);
   const [authEmail, setAuthEmail] = useState("");
   const [authPass, setAuthPass] = useState("");
+  const [filter, setFilter] = useState("all"); 
+  const [logs, setLogs] = useState([]);
+  const [showLogs, setShowLogs] = useState(false);
 
   useEffect(() => {
     if (!supabase) { 
@@ -279,6 +282,50 @@ function AdminPanel() {
     setLoading(false);
   };
 
+  const fetchLogs = async () => {
+    if (showLogs) { setShowLogs(false); return; }
+    
+    const { data, error } = await supabase
+      .from('access_logs')
+      .select('*')
+      .order('login_time', { ascending: false })
+      .limit(20);
+      
+    if (!error) {
+        setLogs(data);
+        setShowLogs(true);
+    }
+  };
+
+  const updateStatus = async (id, status, e) => {
+    e.stopPropagation();
+    const { error } = await supabase
+      .from('applications')
+      .update({ status })
+      .eq('id', id);
+    
+    if (error) alert("Error updating: " + error.message);
+    else {
+        // Optimistic update
+        setApplicants(applicants.map(app => app.id === id ? { ...app, status } : app));
+    }
+  };
+
+  const deleteApplicant = async (id, e) => {
+    e.stopPropagation();
+    if (!confirm("Are you sure you want to delete this applicant? This cannot be undone.")) return;
+
+    const { error } = await supabase
+      .from('applications')
+      .delete()
+      .eq('id', id);
+
+    if (error) alert("Error deleting: " + error.message);
+    else {
+        setApplicants(applicants.filter(app => app.id !== id));
+    }
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!supabase) return alert("Supabase keys are missing in .env!");
@@ -287,10 +334,13 @@ function AdminPanel() {
       email: authEmail, 
       password: authPass 
     });
+    
     if (error) { 
       alert(error.message); 
       setLoading(false); 
-    } else { 
+    } else {
+      // LOG THE LOGIN
+      await supabase.from('access_logs').insert([{ admin_email: authEmail }]);
       window.location.reload(); 
     }
   };
@@ -300,6 +350,12 @@ function AdminPanel() {
     setSession(null);
     setApplicants([]);
   };
+
+  const filteredApplicants = applicants.filter(app => {
+      if (filter === 'all') return true;
+      const status = app.status || 'pending'; 
+      return status === filter;
+  });
 
   if (!supabase) return <div style={{padding: 50, textAlign:'center'}}>⚠️ Critical Error: Missing Supabase Keys. Check .env file.</div>;
 
@@ -323,28 +379,124 @@ function AdminPanel() {
   return (
     <div className="page-content-wrapper" style={{ justifyContent: 'flex-start', paddingTop: 120 }}>
       <div style={{ width: '100%', maxWidth: 1200, margin: '0 auto', textAlign: 'left' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30 }}>
+        
+        {/* DASHBOARD HEADER */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30, flexWrap: 'wrap', gap: 20 }}>
           <h2 className="hero-title" style={{ fontSize: 32, margin: 0 }}>Dashboard</h2>
-          <button onClick={handleLogout} className="text-btn">Logout</button>
+          
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+             {['all', 'pending', 'good', 'bad'].map(f => (
+                 <button 
+                    key={f}
+                    onClick={() => setFilter(f)} 
+                    style={{ 
+                        background: filter === f ? 'var(--accent)' : 'var(--input-bg)',
+                        color: filter === f ? 'white' : 'var(--text-sub)',
+                        border: '1px solid var(--border)',
+                        padding: '8px 16px',
+                        borderRadius: '20px',
+                        cursor: 'pointer',
+                        textTransform: 'capitalize',
+                        fontSize: 13,
+                        fontWeight: 500
+                    }}
+                 >
+                    {f}
+                 </button>
+             ))}
+             
+             {/* ACCESS LOGS BUTTON */}
+             <button onClick={fetchLogs} style={{ background: 'transparent', border: '1px solid var(--border)', color: 'var(--text)', padding: '8px 12px', borderRadius: 6, cursor: 'pointer', marginLeft: 10, fontSize: 13 }}>
+                {showLogs ? "Hide Logs" : "🕒 Logs"}
+             </button>
+
+             <button onClick={handleLogout} className="text-btn">Logout</button>
+          </div>
         </div>
 
+        {/* LOGS VIEW */}
+        {showLogs && (
+            <div className="glass-box" style={{ marginTop: 0, marginBottom: 20, padding: 20, animation: 'fadeIn 0.3s ease' }}>
+                <h3 style={{ fontSize: 16, marginTop: 0, marginBottom: 15 }}>Recent Access</h3>
+                <div style={{ maxHeight: 200, overflowY: 'auto' }}>
+                    {logs.length === 0 ? <p style={{opacity:0.5, fontSize:13}}>No logs yet.</p> : logs.map(log => (
+                        <div key={log.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, borderBottom: '1px solid var(--border)', padding: '8px 0' }}>
+                            <span>{log.admin_email}</span>
+                            <span style={{ opacity: 0.5 }}>{new Date(log.login_time).toLocaleString()}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        )}
+
+        {/* APPLICANTS GRID */}
         {loading ? <p style={{textAlign: 'center', opacity: 0.5}}>Loading data...</p> : (
           <div style={{ display: 'grid', gap: 15, gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))' }}>
-            {applicants.length === 0 && <p style={{opacity:0.5}}>No applications yet.</p>}
-            {applicants.map(app => (
-              <div key={app.id} className="glass-box" style={{ marginTop: 0, padding: 24, cursor: 'pointer', display: 'flex', flexDirection: 'column' }} onClick={() => setExpandedId(expandedId === app.id ? null : app.id)}>
+            {filteredApplicants.length === 0 && <p style={{opacity:0.5}}>No applicants found.</p>}
+            {filteredApplicants.map(app => {
+              const status = app.status || 'pending';
+              const borderColor = status === 'good' ? '#4CAF50' : status === 'bad' ? '#f44336' : 'var(--border)';
+              
+              return (
+              <div 
+                key={app.id} 
+                className="glass-box" 
+                style={{ 
+                    marginTop: 0, 
+                    padding: 24, 
+                    cursor: 'pointer', 
+                    display: 'flex', 
+                    flexDirection: 'column',
+                    border: `1px solid ${borderColor}`,
+                    transition: 'all 0.3s ease'
+                }} 
+                onClick={() => setExpandedId(expandedId === app.id ? null : app.id)}
+              >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: 8 }}>
                   <div>
                     <strong style={{ fontSize: 18, display: 'block' }}>{app.name}</strong>
                     <span style={{ fontSize: 12, color: '#ff5a3c', textTransform: 'uppercase', letterSpacing: 1 }}>{app.role}</span>
                   </div>
-                  <span style={{ fontSize: 12, opacity: 0.4 }}>{new Date(app.created_at).toLocaleDateString()}</span>
+                  <span style={{ 
+                      fontSize: 10, 
+                      background: status === 'good' ? 'rgba(76, 175, 80, 0.2)' : status === 'bad' ? 'rgba(244, 67, 54, 0.2)' : 'rgba(255, 255, 255, 0.1)',
+                      color: status === 'good' ? '#4CAF50' : status === 'bad' ? '#f44336' : 'var(--text-muted)',
+                      padding: '4px 8px',
+                      borderRadius: 4,
+                      textTransform: 'uppercase',
+                      fontWeight: 700
+                  }}>
+                      {status}
+                  </span>
                 </div>
+                
                 <div style={{ fontSize: 13, opacity: 0.7, marginBottom: 10 }}>{app.email}</div>
+
+                {/* ACTION BUTTONS */}
+                <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
+                    <button 
+                        onClick={(e) => updateStatus(app.id, 'good', e)}
+                        style={{ flex: 1, padding: 8, background: 'rgba(76, 175, 80, 0.15)', border: '1px solid rgba(76, 175, 80, 0.3)', color: '#4CAF50', borderRadius: 6, cursor: 'pointer', fontSize: 12, fontWeight: 'bold' }}>
+                        👍 Good
+                    </button>
+                    <button 
+                        onClick={(e) => updateStatus(app.id, 'bad', e)}
+                        style={{ flex: 1, padding: 8, background: 'rgba(244, 67, 54, 0.15)', border: '1px solid rgba(244, 67, 54, 0.3)', color: '#f44336', borderRadius: 6, cursor: 'pointer', fontSize: 12, fontWeight: 'bold' }}>
+                        👎 Bad
+                    </button>
+                    <button 
+                        onClick={(e) => deleteApplicant(app.id, e)}
+                        style={{ padding: '8px 12px', background: 'transparent', border: '1px solid var(--border)', color: 'var(--text-muted)', borderRadius: 6, cursor: 'pointer', fontSize: 14 }}>
+                        🗑️
+                    </button>
+                </div>
+
                 {expandedId === app.id && (
                   <div style={{ marginTop: 15, paddingTop: 15, borderTop: '1px solid var(--border)', fontSize: 14, lineHeight: 1.6, animation: 'fadeIn 0.3s ease' }}>
                     <p><strong>Phone:</strong> {app.phone}</p>
                     <p><strong>College:</strong> {app.college} ({app.year})</p>
+                    <span style={{ fontSize: 12, opacity: 0.4, display: 'block', marginBottom: 15 }}>Applied: {new Date(app.created_at).toLocaleDateString()}</span>
+
                     <div style={{ marginTop: 15 }}>
                       <strong style={{ display:'block', marginBottom: 5, fontSize: 12, opacity: 0.5, textTransform: 'uppercase' }}>Role Specifics</strong>
                       <div style={{ background: 'rgba(0,0,0,0.2)', padding: 12, borderRadius: 8, fontSize: 13 }}>
@@ -355,6 +507,7 @@ function AdminPanel() {
                         ))}
                       </div>
                     </div>
+                    
                     <div style={{ marginTop: 15 }}>
                       <strong style={{ display:'block', marginBottom: 5, fontSize: 12, opacity: 0.5, textTransform: 'uppercase' }}>Common</strong>
                       {app.common_answers && Object.entries(app.common_answers).map(([k, v]) => (
@@ -366,7 +519,7 @@ function AdminPanel() {
                   </div>
                 )}
               </div>
-            ))}
+            )})}
           </div>
         )}
       </div>
