@@ -584,7 +584,7 @@ function FormPage({ onBack }) {
             {/* Added Placeholders back */}
             <div className="field-group"><Label>Name</Label><input type="text" value={basics.name} placeholder="e.g. John Thomas" onChange={e=>setBasics({...basics, name:e.target.value})} style={inputStyle(!!errors.name)} /><ErrorMsg msg={errors.name}/></div>
             <div className="field-group"><Label>Year</Label><SelectField value={basics.year} onChange={v=>setBasics({...basics, year:v})} options={YEAR_OPTIONS} hasError={!!errors.year} /><ErrorMsg msg={errors.year}/></div>
-            <div className="field-group"><Label>College</Label><input type="text" value={basics.college} placeholder="e.g. Stanford or Google" onChange={e=>setBasics({...basics, college:e.target.value})} style={inputStyle(!!errors.college)} /><ErrorMsg msg={errors.college}/></div>
+            <div className="field-group"><Label>School / College / Company</Label><input type="text" value={basics.college} placeholder="e.g. Stanford or Google" onChange={e=>setBasics({...basics, college:e.target.value})} style={inputStyle(!!errors.college)} /><ErrorMsg msg={errors.college}/></div>
             
             <div className="field-group"><Label>Phone</Label><div style={{display:'flex', gap:10}}><div style={{width:90}}><SelectField value={basics.countryCode} onChange={v=>setBasics({...basics, countryCode:v})} options={COUNTRY_CODES}/></div><input type="tel" value={basics.phone} placeholder="98765 43210" onChange={e=>{const v=e.target.value.replace(/\D/g,""); if(v.length<=10)setBasics({...basics, phone:v})}} style={{...inputStyle(!!errors.phone), flex:1}} /></div><ErrorMsg msg={errors.phone}/></div>
             
