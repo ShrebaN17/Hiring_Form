@@ -73,7 +73,7 @@ const TEAM_MEMBERS = [
     name: "Srinjoy Debnath", 
     role: "Product Designer", 
     bio: "Works on visual identity, layout systems, and design consistency across the platform. Ensures the product communicates clarity, trust, and professionalism through thoughtful design choices.", 
-    img: "/team/member4.jpg" // Leave empty to show initials
+    img: "/team/member8.jpg" // Leave empty to show initials
   },
   { 
     name: "Om Suryawanshi", 
