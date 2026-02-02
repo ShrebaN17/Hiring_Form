@@ -9,7 +9,7 @@ const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 // Fail-safe client creation
 const supabase = (SUPABASE_URL && SUPABASE_ANON_KEY) 
-  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) 
   : null;
 
 // ──────────────────────────────────────────
@@ -24,41 +24,96 @@ const ROLES = [
 const YEAR_OPTIONS = ["In School", "1st Year", "2nd Year", "3rd Year", "4th Year", "Graduated"];
 const COUNTRY_CODES = ["+91", "+1", "+44", "+61", "+81", "+49", "+33", "+86"];
 
+// TEAM DATA
 const TEAM_MEMBERS = [
-  { name: "Team Member 1", role: "Co-Founder / CEO", bio: "Leading the vision." },
-  { name: "Team Member 2", role: "Co-Founder / CTO", bio: "Tech architect." },
-  { name: "Team Member 3", role: "Lead AI Engineer", bio: "LLM infrastructure." },
-  { name: "Team Member 4", role: "Senior Full Stack", bio: "User experience." },
-  { name: "Team Member 5", role: "Frontend Dev", bio: "Pixel-perfect UI." },
-  { name: "Team Member 6", role: "Backend Dev", bio: "Scalability & security." },
-  { name: "Team Member 7", role: "Product Designer", bio: "Intuitive interfaces." },
-  { name: "Team Member 8", role: "Marketing Lead", bio: "Growth & outreach." },
-  { name: "Team Member 9", role: "Operations", bio: "Keeping us moving." },
+  { 
+    name: "Priyangshu Dey", 
+    role: "Co-Founder / CEO", 
+    bio: "Focused on building reliable, trust-first products that solve real operational problems. Leads product direction, vision, and long-term strategy.", 
+    img: "/team/member1.jpg",
+    linkedin: "https://www.linkedin.com/in/priyangshu-dey-371608275/" 
+  },
+  { 
+    name: "Arman Das", 
+    role: "Co-Founder / CTO", 
+    bio: "Leads the technical architecture and infrastructure. Responsible for building scalable, secure, and dependable systems.", 
+    img: "/team/member2.jpg",
+    linkedin: "https://www.linkedin.com/in/work-arman-das/"
+  },
+  { 
+    name: "Shreyas Bhanja", 
+    role: "Co-Founder / COO", 
+    bio: "Oversees execution, operations, and business systems. Focused on turning product ideas into repeatable processes.", 
+    img: "/team/member3.jpg",
+    linkedin: "https://www.linkedin.com/in/shreyasbhanja/"
+  },
+  { 
+    name: "Hardik Chaturvedi", 
+    role: "AI/ML Developer", 
+    bio: "Responsible for building and maintaining the AI systems that drive core product functionality.", 
+    img: "/team/member4.jpg",
+    linkedin: "https://www.linkedin.com/in/hardik-chaturvedi-9ba62437a/"
+  },
+  { 
+    name: "Arkajyoti Roy", 
+    role: "Frontend Developer", 
+    bio: "Responsible for crafting intuitive, clean, and functional user interfaces.", 
+    img: "/team/member4.jpg", 
+    linkedin: "#"
+  },
+  { 
+    name: "Awani Rashmi", 
+    role: "Frontend Developer", 
+    bio: "Focused on translating complex systems into simple, usable experiences that feel calm and reliable.", 
+    img: "/team/member6.jpg",
+    linkedin: "https://www.linkedin.com/in/awani-rashmi-031463320/"
+  },
+  { 
+    name: "Ghanan Dhamija", 
+    role: "Product Designer", 
+    bio: "Works on visual identity, layout systems, and design consistency across the platform.", 
+    img: "/team/member5.jpg",
+    linkedin: "#"
+  },
+  { 
+    name: "Srinjoy Debnath", 
+    role: "Product Designer", 
+    bio: "Ensures the product communicates clarity, trust, and professionalism through thoughtful design.", 
+    img: "/team/member8.jpg",
+    linkedin: "https://www.linkedin.com/in/srinjoy-debnath-a27470266/"
+  },
+  { 
+    name: "Om Suryawanshi", 
+    role: "Advisor - System & Security", 
+    bio: "Provides strategic guidance on system design, security, and long-term technical resilience.", 
+    img: "/team/member9.jpg",
+    linkedin: "https://www.linkedin.com/in/om-suryawanshi-262165242/"
+  },
 ];
 
 const ROLE_QUESTIONS = {
   "ai-ml": [
-    { id: "ml_experience", label: "Experience level with ML / AI?", type: "select", options: ["Beginner", "Intermediate", "Advanced", "Expert"] },
-    { id: "ml_stack", label: "Tools / frameworks used?", type: "multi", options: ["Python", "TensorFlow", "PyTorch", "LangChain", "OpenAI API", "Other"] },
-    { id: "ml_project", label: "Describe an AI project you've built.", type: "textarea", placeholder: "e.g. RAG chatbot..." },
+    { id: "ml_experience", label: "What's your experience level with ML / AI?", type: "select", options: ["Just getting started", "Worked on a few projects", "Built & deployed models", "Research-level experience"] },
+    { id: "ml_stack", label: "Which tools / frameworks have you used?", type: "multi", options: ["Python", "TensorFlow", "PyTorch", "Hugging Face", "LangChain", "OpenAI API", "scikit-learn", "Other"] },
+    { id: "ml_project", label: "Briefly describe an AI/ML project you've worked on.", type: "textarea", placeholder: "e.g. I built a RAG chatbot using LangChain..." },
   ],
   dev: [
-    { id: "dev_stack", label: "Primary tech stack?", type: "multi", options: ["React/Next.js", "Node/Express", "Python/Django", "PostgreSQL", "Tailwind"] },
-    { id: "dev_github", label: "GitHub / Portfolio link.", type: "textarea", placeholder: "github.com/..." },
-    { id: "dev_challenge", label: "Hardest bug you fixed?", type: "textarea", placeholder: "Brief description..." },
+    { id: "dev_stack", label: "What is your primary tech stack?", type: "multi", options: ["React / Next.js", "Vue / Nuxt", "Node.js / Express", "Python / Django", "Supabase / Firebase", "PostgreSQL / SQL", "Tailwind CSS", "TypeScript"] },
+    { id: "dev_github", label: "Share your GitHub or Portfolio link.", type: "textarea", placeholder: "e.g. github.com/johnthomas" },
+    { id: "dev_challenge", label: "What is the hardest bug you fixed or feature you built?", type: "textarea", placeholder: "e.g. I optimized a slow API query by indexing..." },
   ],
   tester: [
-    { id: "test_type", label: "Testing preference?", type: "select", options: ["UI/UX", "Functional", "Performance", "Security"] },
-    { id: "test_devices", label: "Devices available?", type: "multi", options: ["Windows", "Mac", "iPhone", "Android"] },
-    { id: "test_bug", label: "Describe a bug you found recently.", type: "textarea", placeholder: "e.g. Instagram crash..." },
+    { id: "test_type", label: "What kind of testing do you enjoy most?", type: "select", options: ["UI / UX (Design flaws)", "Functional (Logic bugs)", "Performance (Speed / Load)", "Security (Vulnerabilities)", "I just like breaking things"] },
+    { id: "test_devices", label: "What devices can you test on? (Pick all that apply)", type: "multi", options: ["Windows Laptop/PC", "MacBook / Mac", "iPhone (iOS)", "Android Phone", "iPad / Tablet"] },
+    { id: "test_bug", label: "Describe a critical bug you found in an app you use.", type: "textarea", placeholder: "e.g. I found that clicking 'Back' twice on Instagram crashed the app..." },
   ],
 };
 
 const COMMON_QUESTIONS = [
-  { id: "why_interested", label: "Why Aakaar.io?", type: "textarea", placeholder: "I want to build..." },
-  { id: "availability", label: "Weekly commitment?", type: "select", options: ["1–2 hours", "3–5 hours", "5–10 hours", "10+ hours"] },
-  { id: "hear_about", label: "How did you hear about us?", type: "select", options: ["Friend", "Social Media", "Campus", "Other"] },
-  { id: "extra", label: "Anything else? (optional)", type: "textarea", placeholder: "Design skills, etc.", optional: true },
+  { id: "why_interested", label: "Why does this product interest you?", type: "textarea", placeholder: "e.g. I love AI tools and want to help..." },
+  { id: "availability", label: "How much time can you commit (per week)?", type: "select", options: ["1–2 hours", "3–5 hours", "5–10 hours", "10+ hours"] },
+  { id: "hear_about", label: "How did you hear about us?", type: "select", options: ["Friend / Word of mouth", "Social media", "Campus notice", "Email", "Other"] },
+  { id: "extra", label: "Anything else? (optional)", type: "textarea", placeholder: "e.g. I also do graphic design...", optional: true },
 ];
 
 // ──────────────────────────────────────────
@@ -82,7 +137,8 @@ const inputStyle = (hasError) => ({
 function Label({ children, optional }) {
   return (
     <label style={{ display: "block", fontSize: 12, color: "var(--text-sub)", letterSpacing: 1.2, textTransform: "uppercase", marginBottom: 8, textAlign: "left" }}>
-      {children} {optional && <span style={{ color: "var(--text-muted)", textTransform: "none", letterSpacing: 0, fontSize: 11 }}>(optional)</span>}
+      {children}{" "}
+      {optional && <span style={{ color: "var(--text-muted)", textTransform: "none", letterSpacing: 0, fontSize: 11 }}>(optional)</span>}
     </label>
   );
 }
@@ -95,7 +151,7 @@ function SelectField({ value, onChange, options, hasError }) {
   return (
     <div style={{ position: "relative" }}>
       <select value={value} onChange={(e) => onChange(e.target.value)} style={{ ...inputStyle(hasError), cursor: "pointer", paddingRight: 40 }}>
-        <option value="" disabled style={{ color: "var(--text-muted)" }}>Select...</option>
+        <option value="" disabled style={{ color: "var(--text-muted)" }}>Choose an option</option>
         {options.map((o) => (<option key={o} value={o} style={{ background: "var(--bg)", color: "var(--text)" }}>{o}</option>))}
       </select>
       <span style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)", pointerEvents: "none", fontSize: 12 }}>▼</span>
@@ -143,6 +199,24 @@ function QuestionBlock({ q, value, onChange, error }) {
   );
 }
 
+// SCROLL TO TOP COMPONENT
+function ScrollToTop() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => setShow(window.scrollY > 300);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
+  return show ? (
+    <button onClick={scrollToTop} className="scroll-top-btn" aria-label="Scroll to top">
+      ↑
+    </button>
+  ) : null;
+}
+
 function CursorBlob() {
   const blobRef = useRef(null);
   useEffect(() => {
@@ -167,15 +241,16 @@ const SunIcon = () => (<svg width="20" height="20" viewBox="0 0 24 24" fill="non
 const MoonIcon = () => (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>);
 
 // ──────────────────────────────────────────
-// 4. ADMIN PANEL (FIXED)
+// 4. ADMIN PANEL (UPDATED)
 // ──────────────────────────────────────────
 function AdminPanel() {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
   const [applicants, setApplicants] = useState([]);
   const [expandedId, setExpandedId] = useState(null);
-  const [authEmail, setAuthEmail] = useState(""); // Controlled input state
-  const [authPass, setAuthPass] = useState("");   // Controlled input state
+  const [authEmail, setAuthEmail] = useState("");
+  const [authPass, setAuthPass] = useState("");
+  const [filter, setFilter] = useState("all"); // 'all', 'good', 'bad', 'pending'
 
   useEffect(() => {
     if (!supabase) { 
@@ -205,25 +280,48 @@ function AdminPanel() {
     setLoading(false);
   };
 
+  const updateStatus = async (id, status, e) => {
+    e.stopPropagation();
+    const { error } = await supabase
+      .from('applications')
+      .update({ status })
+      .eq('id', id);
+    
+    if (error) alert("Error updating: " + error.message);
+    else {
+        // Optimistic update
+        setApplicants(applicants.map(app => app.id === id ? { ...app, status } : app));
+    }
+  };
+
+  const deleteApplicant = async (id, e) => {
+    e.stopPropagation();
+    if (!confirm("Are you sure you want to delete this applicant? This cannot be undone.")) return;
+
+    const { error } = await supabase
+      .from('applications')
+      .delete()
+      .eq('id', id);
+
+    if (error) alert("Error deleting: " + error.message);
+    else {
+        setApplicants(applicants.filter(app => app.id !== id));
+    }
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!supabase) return alert("Supabase keys are missing in .env!");
-    
     setLoading(true);
-    
-    const { data, error } = await supabase.auth.signInWithPassword({ 
+    const { error } = await supabase.auth.signInWithPassword({ 
       email: authEmail, 
       password: authPass 
     });
-    
     if (error) { 
       alert(error.message); 
       setLoading(false); 
     } else { 
-      // SUCCESS: Set session immediately to flip UI
-      setSession(data.session);
-      await fetchApplicants();
-      // Loading stays true until data is fetched, preventing flicker
+      window.location.reload(); 
     }
   };
 
@@ -233,34 +331,23 @@ function AdminPanel() {
     setApplicants([]);
   };
 
-  // If keys missing
+  const filteredApplicants = applicants.filter(app => {
+      if (filter === 'all') return true;
+      // Default to pending if no status exists
+      const status = app.status || 'pending'; 
+      return status === filter;
+  });
+
   if (!supabase) return <div style={{padding: 50, textAlign:'center'}}>⚠️ Critical Error: Missing Supabase Keys. Check .env file.</div>;
 
-  // LOGIN VIEW
   if (!session) {
     return (
       <div className="page-content-wrapper">
         <div className="glass-box" style={{ maxWidth: 400, width: '100%', textAlign: 'center' }}>
           <h2 className="section-title">Admin Access</h2>
           <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
-            <input 
-              className="login-input" 
-              type="email" 
-              placeholder="Admin Email" 
-              value={authEmail}
-              onChange={(e) => setAuthEmail(e.target.value)}
-              required 
-              style={inputStyle(false)} 
-            />
-            <input 
-              className="login-input" 
-              type="password" 
-              placeholder="Password" 
-              value={authPass}
-              onChange={(e) => setAuthPass(e.target.value)}
-              required 
-              style={inputStyle(false)} 
-            />
+            <input className="login-input" type="email" placeholder="Admin Email" value={authEmail} onChange={(e) => setAuthEmail(e.target.value)} required style={inputStyle(false)} />
+            <input className="login-input" type="password" placeholder="Password" value={authPass} onChange={(e) => setAuthPass(e.target.value)} required style={inputStyle(false)} />
             <button type="submit" className="primary-btn" disabled={loading} style={{ justifyContent: 'center' }}>
               {loading ? "Authenticating..." : "Login →"}
             </button>
@@ -270,34 +357,103 @@ function AdminPanel() {
     );
   }
 
-  // DASHBOARD VIEW
   return (
     <div className="page-content-wrapper" style={{ justifyContent: 'flex-start', paddingTop: 120 }}>
       <div style={{ width: '100%', maxWidth: 1200, margin: '0 auto', textAlign: 'left' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30, flexWrap: 'wrap', gap: 20 }}>
           <h2 className="hero-title" style={{ fontSize: 32, margin: 0 }}>Dashboard</h2>
-          <button onClick={handleLogout} className="text-btn">Logout</button>
+          
+          <div style={{ display: 'flex', gap: 10 }}>
+             {['all', 'pending', 'good', 'bad'].map(f => (
+                 <button 
+                    key={f}
+                    onClick={() => setFilter(f)} 
+                    style={{ 
+                        background: filter === f ? 'var(--accent)' : 'var(--input-bg)',
+                        color: filter === f ? 'white' : 'var(--text-sub)',
+                        border: '1px solid var(--border)',
+                        padding: '8px 16px',
+                        borderRadius: '20px',
+                        cursor: 'pointer',
+                        textTransform: 'capitalize',
+                        fontSize: 13,
+                        fontWeight: 500
+                    }}
+                 >
+                    {f}
+                 </button>
+             ))}
+             <button onClick={handleLogout} className="text-btn" style={{ marginLeft: 10 }}>Logout</button>
+          </div>
         </div>
 
         {loading ? <p style={{textAlign: 'center', opacity: 0.5}}>Loading data...</p> : (
           <div style={{ display: 'grid', gap: 15, gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))' }}>
-            {applicants.length === 0 && <p style={{opacity:0.5}}>No applications yet.</p>}
-            {applicants.map(app => (
-              <div key={app.id} className="glass-box" style={{ marginTop: 0, padding: 24, cursor: 'pointer', display: 'flex', flexDirection: 'column' }} onClick={() => setExpandedId(expandedId === app.id ? null : app.id)}>
+            {filteredApplicants.length === 0 && <p style={{opacity:0.5}}>No applicants found.</p>}
+            {filteredApplicants.map(app => {
+              const status = app.status || 'pending';
+              const borderColor = status === 'good' ? '#4CAF50' : status === 'bad' ? '#f44336' : 'var(--border)';
+              
+              return (
+              <div 
+                key={app.id} 
+                className="glass-box" 
+                style={{ 
+                    marginTop: 0, 
+                    padding: 24, 
+                    cursor: 'pointer', 
+                    display: 'flex', 
+                    flexDirection: 'column',
+                    border: `1px solid ${borderColor}`,
+                    transition: 'all 0.3s ease'
+                }} 
+                onClick={() => setExpandedId(expandedId === app.id ? null : app.id)}
+              >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: 8 }}>
                   <div>
                     <strong style={{ fontSize: 18, display: 'block' }}>{app.name}</strong>
                     <span style={{ fontSize: 12, color: '#ff5a3c', textTransform: 'uppercase', letterSpacing: 1 }}>{app.role}</span>
                   </div>
-                  <span style={{ fontSize: 12, opacity: 0.4 }}>{new Date(app.created_at).toLocaleDateString()}</span>
+                  <span style={{ 
+                      fontSize: 10, 
+                      background: status === 'good' ? 'rgba(76, 175, 80, 0.2)' : status === 'bad' ? 'rgba(244, 67, 54, 0.2)' : 'rgba(255, 255, 255, 0.1)',
+                      color: status === 'good' ? '#4CAF50' : status === 'bad' ? '#f44336' : 'var(--text-muted)',
+                      padding: '4px 8px',
+                      borderRadius: 4,
+                      textTransform: 'uppercase',
+                      fontWeight: 700
+                  }}>
+                      {status}
+                  </span>
                 </div>
                 
                 <div style={{ fontSize: 13, opacity: 0.7, marginBottom: 10 }}>{app.email}</div>
+
+                {/* ACTION BUTTONS */}
+                <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
+                    <button 
+                        onClick={(e) => updateStatus(app.id, 'good', e)}
+                        style={{ flex: 1, padding: 8, background: 'rgba(76, 175, 80, 0.1)', border: '1px solid rgba(76, 175, 80, 0.3)', color: '#4CAF50', borderRadius: 6, cursor: 'pointer', fontSize: 12 }}>
+                        👍 Good
+                    </button>
+                    <button 
+                        onClick={(e) => updateStatus(app.id, 'bad', e)}
+                        style={{ flex: 1, padding: 8, background: 'rgba(244, 67, 54, 0.1)', border: '1px solid rgba(244, 67, 54, 0.3)', color: '#f44336', borderRadius: 6, cursor: 'pointer', fontSize: 12 }}>
+                        👎 Bad
+                    </button>
+                    <button 
+                        onClick={(e) => deleteApplicant(app.id, e)}
+                        style={{ padding: '8px 12px', background: 'transparent', border: '1px solid var(--border)', color: 'var(--text-muted)', borderRadius: 6, cursor: 'pointer', fontSize: 14 }}>
+                        🗑️
+                    </button>
+                </div>
 
                 {expandedId === app.id && (
                   <div style={{ marginTop: 15, paddingTop: 15, borderTop: '1px solid var(--border)', fontSize: 14, lineHeight: 1.6, animation: 'fadeIn 0.3s ease' }}>
                     <p><strong>Phone:</strong> {app.phone}</p>
                     <p><strong>College:</strong> {app.college} ({app.year})</p>
+                    <span style={{ fontSize: 12, opacity: 0.4, display: 'block', marginBottom: 15 }}>Applied: {new Date(app.created_at).toLocaleDateString()}</span>
+
                     <div style={{ marginTop: 15 }}>
                       <strong style={{ display:'block', marginBottom: 5, fontSize: 12, opacity: 0.5, textTransform: 'uppercase' }}>Role Specifics</strong>
                       <div style={{ background: 'rgba(0,0,0,0.2)', padding: 12, borderRadius: 8, fontSize: 13 }}>
@@ -320,7 +476,7 @@ function AdminPanel() {
                   </div>
                 )}
               </div>
-            ))}
+            )})}
           </div>
         )}
       </div>
@@ -347,11 +503,13 @@ function FixedHeader({ onNavigate, theme, toggleTheme }) {
         </div>
         <div className="header-right">
           <div className="social-links desktop-only">
-            <a href="#" className="social-icon"><InstagramIcon /></a>
-            <a href="#" className="social-icon"><LinkedinIcon /></a>
-            <a href="#" className="social-icon"><TwitterIcon /></a>
+            <a href="https://www.instagram.com/aakaar.io/" className="social-icon"><InstagramIcon /></a>
+            <a href="https://www.linkedin.com/company/aakaario/" className="social-icon"><LinkedinIcon /></a>
+            <a href="https://x.com/aakaario" className="social-icon"><TwitterIcon /></a>
           </div>
-          <button className="icon-btn" onClick={toggleTheme}>{theme === "dark" ? <SunIcon /> : <MoonIcon />}</button>
+          <button className="icon-btn" onClick={toggleTheme} aria-label="Toggle Theme">
+            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+          </button>
           <button className="mobile-menu-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>{isMenuOpen ? <CloseIcon /> : <MenuIcon />}</button>
         </div>
       </div>
@@ -398,6 +556,14 @@ function Footer() {
           <div className="logo-text" style={{ color: "#ff5a3c", marginBottom: 20, fontSize: 24 }}>AAKAAR.io</div>
           <div className="contact-item"><span style={{ color: "var(--text-muted)", fontSize: 12 }}>Email</span><div style={{ marginTop: 4 }}>support@aakario.com</div></div>
           <div className="contact-item"><span style={{ color: "var(--text-muted)", fontSize: 12 }}>Phone</span><div style={{ marginTop: 4 }}>+91 8280669173</div></div>
+          
+          {/* ADDED SOCIAL ICONS TO FOOTER */}
+          <div style={{ marginTop: 20, display: 'flex', gap: 16 }}>
+            <a href="https://www.instagram.com/aakaar.io/" className="social-icon"><InstagramIcon /></a>
+            <a href="https://www.linkedin.com/company/aakaario/" className="social-icon"><LinkedinIcon /></a>
+            <a href="https://x.com/aakaario" className="social-icon"><TwitterIcon /></a>
+          </div>
+
           <div style={{ marginTop: 30, display: 'flex', gap: 15 }}>
              <a href="#" style={{ color: 'var(--text-sub)', fontSize: 13 }}>Privacy Policy</a>
              <a href="#" style={{ color: 'var(--text-sub)', fontSize: 13 }}>Terms of Service</a>
@@ -405,7 +571,7 @@ function Footer() {
         </div>
         <div className="footer-col map-col">
           <div className="map-frame">
-            <iframe src="https://maps.google.com/maps?q=KIIT+University+Bhubaneswar&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy"></iframe>
+            <iframe src="https://maps.google.com/maps?q=Kings%20Palace%202%2C%20Prasanti%20Vihar%20Rd%2C%20Bhubaneswar&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy"></iframe>
           </div>
           <div style={{ marginTop: 10, fontSize: 12, color: "var(--text-muted)", textAlign: "right" }}>KIIT University, Patia, Bhubaneswar, Odisha 751024</div>
         </div>
@@ -420,12 +586,16 @@ function About() {
     <div className="page-content-wrapper">
       <div className="content-box fade-in" style={{ textAlign: "left", maxWidth: 640 }}>
         <h1 className="hero-title">About Us</h1>
-        <p className="hero-desc">Building the future of web development.</p>
+        <p className="hero-desc">We’re college students building a dependable way to build, deploy, and manage websites.</p>
         <div className="glass-box">
            <h3 className="section-title">What We Do</h3>
-           <p style={{ color: "var(--text-sub)", lineHeight: 1.7, marginBottom: 40 }}>BuildAI is an AI-powered platform designed to democratize software creation. We are building tools that allow anyone—regardless of their technical background—to generate, deploy, and scale web applications using natural language. We believe that the barrier to entry for building great products should be imagination, not syntax.</p>
+           <p style={{ color: "var(--text-sub)", lineHeight: 1.7, marginBottom: 40 }}>We’re a team of college students building a real world product with serious intent. What started as frustration with how complex and unreliable website building can be turned into a focused effort to simplify the entire process from building to deployment and beyond.
+
+We believe good technology should feel dependable, calm, and easy to trust. That belief drives how we build, how we test, and how we ship. We move fast, learn constantly, and take ownership of what we put out into the world.
+
+This is not a side project for us. We’re building with the goal of turning this into something lasting.</p>
            <h3 className="section-title">Our Vision</h3>
-           <p style={{ color: "var(--text-sub)", lineHeight: 1.7 }}>We envision a world where software development is accessible to everyone.</p>
+           <p style={{ color: "var(--text-sub)", lineHeight: 1.7 }}>We envision a future where businesses do not need to worry about tools, deployments, or technical complexity. Our goal is to become the trusted layer that quietly handles digital infrastructure end to end.</p>
         </div>
       </div>
     </div>
@@ -448,19 +618,66 @@ function WhoIsThisFor() {
   );
 }
 
+// ──────────────────────────────────────────
+// TEAM PAGE (Updated for Hover & LinkedIn)
+// ──────────────────────────────────────────
 function Team() {
   return (
     <div className="page-content-wrapper">
-      <div className="content-box fade-in" style={{ maxWidth: 1000 }}>
+      <div className="content-box fade-in" style={{ maxWidth: 1200, width: '100%' }}>
         <h1 className="hero-title" style={{ textAlign: "center" }}>Our Team</h1>
         <p className="hero-desc" style={{ textAlign: "center", marginBottom: 40 }}>The minds behind Aakaar.io.</p>
-        <div className="role-grid" style={{ justifyContent: 'center', gap: 20 }}>
+        
+        {/* CSS Grid for 3x3 Layout - Fixes the squeezing issue */}
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+          gap: '20px',
+          justifyContent: 'center'
+        }}>
            {TEAM_MEMBERS.map((m, i) => (
-             <div key={i} className="role-card" style={{ flexBasis: "280px", textAlign: "center", padding: "30px 20px" }}>
-               <div style={{ width: 80, height: 80, background: "rgba(255,90,60,0.1)", borderRadius: "50%", margin: "0 auto 20px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, color: "#ff5a3c", border: "1px solid rgba(255,90,60,0.2)" }}>{m.name.charAt(0)}</div>
-               <h3 style={{ fontSize: 18, marginBottom: 4, color: "var(--text)" }}>{m.name}</h3>
-               <div style={{ fontSize: 12, color: "#ff5a3c", textTransform: "uppercase", marginBottom: 12 }}>{m.role}</div>
-               <p style={{ fontSize: 13, color: "var(--text-sub)" }}>{m.bio}</p>
+             <div key={i} className="role-card" style={{ textAlign: "center", padding: "40px 20px" }}>
+               
+               {/* IMAGE LOGIC: If img exists, show it. If not, show Initials. */}
+               {m.img ? (
+                 <img 
+                   src={m.img} 
+                   alt={m.name} 
+                   style={{ 
+                     width: 100, 
+                     height: 100, 
+                     borderRadius: "50%", 
+                     margin: "0 auto 24px", 
+                     objectFit: "cover", 
+                     border: "1px solid rgba(255,90,60,0.2)",
+                     display: "block"
+                   }} 
+                 />
+               ) : (
+                 <div style={{ width: 100, height: 100, background: "rgba(255,90,60,0.1)", borderRadius: "50%", margin: "0 auto 24px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, color: "#ff5a3c", border: "1px solid rgba(255,90,60,0.2)" }}>
+                   {m.name.charAt(0)}
+                 </div>
+               )}
+
+               <h3 style={{ fontSize: 20, marginBottom: 8, color: "var(--text)" }}>{m.name}</h3>
+               <div style={{ fontSize: 13, color: "#ff5a3c", textTransform: "uppercase", marginBottom: 16, letterSpacing: 1, fontWeight: 600 }}>{m.role}</div>
+               <p style={{ fontSize: 14, color: "var(--text-sub)", lineHeight: 1.6 }}>{m.bio}</p>
+
+               {/* DESKTOP HOVER OVERLAY */}
+               {m.linkedin && (
+                 <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="member-overlay desktop-overlay">
+                   <div className="linkedin-btn">
+                     <LinkedinIcon />
+                   </div>
+                 </a>
+               )}
+
+               {/* MOBILE STATIC BUTTON (Top Right Corner) */}
+               {m.linkedin && (
+                 <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="mobile-linkedin-btn">
+                   <LinkedinIcon />
+                 </a>
+               )}
              </div>
            ))}
         </div>
@@ -480,16 +697,27 @@ function Landing({ onStart }) {
         <div style={{ ...rv(0), marginBottom: 32 }}><span className="badge">● Early Access — We're hiring</span></div>
         <h1 style={rv(1)} className="hero-title">Help us build<br /><span className="highlight">the future</span><br />of the web.</h1>
         <p style={rv(2)} className="hero-desc">We're an early-stage team building an AI product that lets anyone generate and launch websites — no code required.</p>
-        <div style={rv(3)} className="role-grid">
-          {ROLES.map((r) => (<div key={r.id} className="role-card"><div className="role-head">{r.icon} {r.label}</div><div className="role-desc">{r.desc}</div></div>))}
+        <div style={{ ...rv(3) }} className="role-grid">
+          {ROLES.map((r) => (
+            <div key={r.id} className="role-card">
+              <div className="role-head">{r.icon} {r.label}</div>
+              <div className="role-desc">{r.desc}</div>
+            </div>
+          ))}
         </div>
+
         <div style={rv(4)}>
-          <button onClick={onStart} className="primary-btn">Apply now <span style={{ fontSize: 18 }}>→</span></button>
+          <button onClick={onStart} className="primary-btn">
+            Apply now <span style={{ fontSize: 18 }}>→</span>
+          </button>
           <p className="micro-text">Takes ~5 minutes · No résumés</p>
         </div>
+
+        {/* NEWSLETTER (Landing Page Version) - INCREASED GAP */}
         <div style={{ ...rv(5), marginTop: 60, paddingTop: 40, paddingBottom: 80, borderTop: "1px solid var(--border)" }}>
           <Newsletter />
         </div>
+
       </div>
     </div>
   );
@@ -526,6 +754,9 @@ function FormPage({ onBack }) {
     return Object.keys(e).length === 0;
   };
 
+  const next = () => { if (validate()) setStep((s) => s + 1); };
+  const back = () => { setErrors({}); setStep((s) => s - 1); };
+
   const handleSubmit = async () => {
     if (!validate()) return;
     if (basics.honeypot || (Date.now() - startTime.current < 5000)) { alert("Submission rejected."); return; }
@@ -557,16 +788,38 @@ function FormPage({ onBack }) {
           {step === 0 && <div className="fade-in">
             <h2 className="section-title">About you</h2>
             <input type="text" style={{display:'none'}} value={basics.honeypot} onChange={e=>setBasics({...basics, honeypot:e.target.value})} />
-            <div className="field-group"><Label>Name</Label><input type="text" value={basics.name} onChange={e=>setBasics({...basics, name:e.target.value})} style={inputStyle(!!errors.name)} /><ErrorMsg msg={errors.name}/></div>
+            
+            {/* Added Placeholders back */}
+            <div className="field-group"><Label>Name</Label><input type="text" value={basics.name} placeholder="e.g. John Thomas" onChange={e=>setBasics({...basics, name:e.target.value})} style={inputStyle(!!errors.name)} /><ErrorMsg msg={errors.name}/></div>
             <div className="field-group"><Label>Year</Label><SelectField value={basics.year} onChange={v=>setBasics({...basics, year:v})} options={YEAR_OPTIONS} hasError={!!errors.year} /><ErrorMsg msg={errors.year}/></div>
-            <div className="field-group"><Label>College</Label><input type="text" value={basics.college} onChange={e=>setBasics({...basics, college:e.target.value})} style={inputStyle(!!errors.college)} /><ErrorMsg msg={errors.college}/></div>
-            <div className="field-group"><Label>Phone</Label><div style={{display:'flex', gap:10}}><div style={{width:90}}><SelectField value={basics.countryCode} onChange={v=>setBasics({...basics, countryCode:v})} options={COUNTRY_CODES}/></div><input type="tel" value={basics.phone} onChange={e=>{const v=e.target.value.replace(/\D/g,""); if(v.length<=10)setBasics({...basics, phone:v})}} style={{...inputStyle(!!errors.phone), flex:1}} /></div><ErrorMsg msg={errors.phone}/></div>
-            <div className="field-group"><Label>Email</Label><input type="email" value={basics.email} onChange={e=>setBasics({...basics, email:e.target.value})} style={inputStyle(!!errors.email)} /><ErrorMsg msg={errors.email}/></div>
+            <div className="field-group"><Label>School / College / Company</Label><input type="text" value={basics.college} placeholder="e.g. Stanford or Google" onChange={e=>setBasics({...basics, college:e.target.value})} style={inputStyle(!!errors.college)} /><ErrorMsg msg={errors.college}/></div>
+            
+            <div className="field-group"><Label>Phone</Label><div style={{display:'flex', gap:10}}><div style={{width:90}}><SelectField value={basics.countryCode} onChange={v=>setBasics({...basics, countryCode:v})} options={COUNTRY_CODES}/></div><input type="tel" value={basics.phone} placeholder="98765 43210" onChange={e=>{const v=e.target.value.replace(/\D/g,""); if(v.length<=10)setBasics({...basics, phone:v})}} style={{...inputStyle(!!errors.phone), flex:1}} /></div><ErrorMsg msg={errors.phone}/></div>
+            
+            <div className="field-group"><Label>Email</Label><input type="email" value={basics.email} placeholder="e.g. john@example.com" onChange={e=>setBasics({...basics, email:e.target.value})} style={inputStyle(!!errors.email)} /><ErrorMsg msg={errors.email}/></div>
           </div>}
-          {step === 1 && <div className="fade-in"><h2 className="section-title">Pick a role</h2><div className="role-list">{ROLES.map(r=><button key={r.id} onClick={()=>{setSelectedRole(r.id);setRoleAnswers({})}} className={`role-btn ${selectedRole===r.id?"active":""}`}><span className="role-icon">{r.icon}</span><div><div className="role-name">{r.label}</div><div className="role-sub">{r.desc}</div></div></button>)}</div><ErrorMsg msg={errors.role}/></div>}
+          
+          {step === 1 && <div className="fade-in">
+            <h2 className="section-title">Pick a role</h2>
+            <div className="role-list">
+              {ROLES.map(r=>(
+                <button key={r.id} onClick={()=>{setSelectedRole(r.id);setRoleAnswers({})}} className={`role-btn ${selectedRole===r.id?"active":""}`}>
+                  <span className="role-icon">{selectedRole===r.id?"✓":r.icon}</span>
+                  <div style={{ textAlign: "left" }}>
+                    <div className="role-name">{r.label}</div>
+                    <div className="role-sub">{r.desc}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+            <ErrorMsg msg={errors.role}/>
+          </div>}
+          
           {step === 2 && <div className="fade-in"><h2 className="section-title">Questions</h2>{(ROLE_QUESTIONS[selectedRole]||[]).map(q=><QuestionBlock key={q.id} q={q} value={roleAnswers[q.id]} onChange={v=>setRoleAnswers({...roleAnswers, [q.id]:v})} error={errors[q.id]}/>)}</div>}
           {step === 3 && <div className="fade-in"><h2 className="section-title">Final details</h2>{COMMON_QUESTIONS.map(q=><QuestionBlock key={q.id} q={q} value={commonAnswers[q.id]} onChange={v=>setCommonAnswers({...commonAnswers, [q.id]:v})} error={errors[q.id]}/>)}</div>}
           {step === 4 && <div className="fade-in" style={{textAlign:'center'}}><div className="success-badge">✓</div><h2 className="section-title">You're in!</h2><p className="hero-desc">We'll email <strong>{basics.email}</strong> soon.</p><div style={{marginTop:40}}><Newsletter compact={true}/></div></div>}
+          
+          {/* NAVIGATION BUTTONS */}
           {step < 4 && <div className="nav-row"><button onClick={()=>step===0?onBack():back()} className="text-btn">← Back</button><button onClick={()=>step===3?handleSubmit():next()} className="primary-btn" disabled={isSubmitting}>{isSubmitting?"Sending...":step===3?"Submit":"Continue"}</button></div>}
         </div>
       </div>
@@ -580,6 +833,7 @@ function FormPage({ onBack }) {
 export default function App() {
   const [page, setPage] = useState("landing");
   const [theme, setTheme] = useState("dark");
+  const [showRickRoll, setShowRickRoll] = useState(false); // Rick Roll State
   const urlPath = window.location.pathname;
 
   useEffect(() => { document.body.className = theme; }, [theme]);
@@ -599,11 +853,38 @@ export default function App() {
   return (
     <>
       <GlobalStyles theme={theme} />
-      <div style={{ position: "fixed", top: "-100px", right: "-100px", width: "400px", height: "400px", background: "rgba(255,90,60,0.1)", filter: "blur(100px)", borderRadius: "50%", zIndex: 0 }} />
-      <div style={{ position: "fixed", bottom: "-100px", left: "-100px", width: "300px", height: "300px", background: "rgba(60,60,200,0.1)", filter: "blur(100px)", borderRadius: "50%", zIndex: 0 }} />
+      
+      {/* Rick Roll Overlay */}
+      {showRickRoll && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 10000, background: "black", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          <h1 style={{ color: "#ff5a3c", fontSize: "40px", marginBottom: "30px", fontFamily: "'Playfair Display', serif", textAlign: 'center', padding: '0 20px' }}>Light mode is for pussies XD</h1>
+          <iframe 
+            width="800" height="450" 
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
+            title="Rick Roll" 
+            frameBorder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowFullScreen
+            style={{ maxWidth: '100vw', maxHeight: '50vh' }}
+          ></iframe>
+          <button onClick={() => setShowRickRoll(false)} style={{ marginTop: "30px", padding: "10px 20px", background: "#333", color: "white", border: "none", borderRadius: "5px", cursor: "pointer", fontFamily: "'Inter', sans-serif" }}>I understand, take me back :')</button>
+        </div>
+      )}
+
+      {/* NEW ANIMATED BACKGROUND BLOBS - FIXED POINTER EVENTS */}
+      <div style={{ position: "fixed", top: "20%", right: "-100px", width: "500px", height: "500px", background: "rgba(255,90,60,0.08)", filter: "blur(120px)", borderRadius: "50%", zIndex: 0, animation: "float 10s infinite ease-in-out", pointerEvents: "none" }} />
+      <div style={{ position: "fixed", bottom: "-100px", left: "-100px", width: "400px", height: "400px", background: "rgba(60,60,200,0.08)", filter: "blur(120px)", borderRadius: "50%", zIndex: 0, animation: "float 14s infinite ease-in-out reverse", pointerEvents: "none" }} />
+      <div style={{ position: "fixed", top: "40%", left: "40%", width: "300px", height: "300px", background: "rgba(120,50,200,0.06)", filter: "blur(100px)", borderRadius: "50%", zIndex: 0, animation: "float 12s infinite ease-in-out 2s", pointerEvents: "none" }} />
       
       <CursorBlob />
-      <FixedHeader onNavigate={setPage} theme={theme} toggleTheme={() => setTheme(t => t === 'dark' ? 'light' : 'dark')} />
+      <ScrollToTop />
+      
+      {/* Pass setShowRickRoll to toggleTheme prop */}
+      <FixedHeader 
+        onNavigate={setPage} 
+        theme={theme} 
+        toggleTheme={() => setShowRickRoll(true)} 
+      />
 
       {page === "landing" ? <Landing onStart={() => setPage("form")} /> : 
        page === "form" ? <FormPage onBack={() => setPage("landing")} /> :
@@ -620,6 +901,15 @@ function GlobalStyles({ theme }) {
   return (
     <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;800&display=swap');
+        
+        /* ANIMATION FOR FLOATING BLOBS */
+        @keyframes float {
+          0% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+
         :root {
           --bg: #0c0c0e; --text: #ffffff; --text-sub: rgba(255,255,255,0.5); --text-muted: rgba(255,255,255,0.3);
           --border: rgba(255,255,255,0.1); --glass-bg: rgba(255,255,255,0.03); --glass-border: rgba(255,255,255,0.08);
@@ -655,37 +945,49 @@ function GlobalStyles({ theme }) {
         .mobile-link { background: none; border: none; color: var(--text-sub); font-size: 16px; font-weight: 500; text-align: left; padding: 10px; cursor: pointer; border-radius: 8px; font-family: 'Inter', sans-serif; }
         .mobile-link:hover { background: var(--input-bg); color: var(--text); }
         .mobile-socials { display: flex; gap: 24px; padding: 10px; margin-top: 10px; border-top: 1px solid var(--border); padding-top: 20px; }
-        
-        /* ─── LAYOUT & CENTERING ─── */
-        .page-content-wrapper { 
-          padding-top: 100px; 
-          padding-bottom: 60px; /* Space for footer */
-          padding-left: 20px; 
-          padding-right: 20px; 
-          display: flex; 
-          flex-direction: column; /* Force column layout to prevent stretching */
-          align-items: center;    /* Absolute center horizontally */
-          justify-content: flex-start;
-          flex: 1; 
-          width: 100%; 
-          box-sizing: border-box; 
-        }
+        .page-content-wrapper { padding-top: 100px; padding-bottom: 40px; padding-left: 20px; padding-right: 20px; display: flex; justify-content: center; flex: 1; width: 100%; box-sizing: border-box; flex-direction: column; align-items: center; }
         .content-box { width: 100%; max-width: 600px; position: relative; }
         .landing-box { text-align: center; }
         .form-box { text-align: left; padding-bottom: 40px; }
         .glass-box { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 32px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); margin-top: 48px; }
-        
-        /* ─── TYPOGRAPHY ─── */
         .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(36px, 6vw, 64px); line-height: 1.1; margin: 0 0 24px; color: var(--text); }
         .highlight { color: var(--accent); font-style: italic; }
         .hero-desc { font-size: 16px; color: var(--text-sub); line-height: 1.6; margin-bottom: 32px; }
         .section-title { font-family: 'Playfair Display', serif; font-size: 28px; margin-top: 0; margin-bottom: 24px; color: var(--text); }
         .badge { display: inline-block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(255,90,60,0.4); padding: 5px 12px; border-radius: 20px; background: rgba(255,90,60,0.05); }
         .micro-text { font-size: 12px; color: var(--text-muted); margin-top: 16px; }
-        
-        /* ─── COMPONENTS ─── */
         .role-grid { display: flex; flex-wrap: nowrap; justify-content: center; gap: 12px; margin-bottom: 40px; width: 100%; }
-        .role-card { flex: 1; min-width: 0; background: var(--glass-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; text-align: left; }
+        
+        /* TEAM CARD STYLES */
+        .role-card { 
+          flex: 1; min-width: 0; background: var(--glass-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; text-align: left; 
+          position: relative; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .role-card:hover {
+          transform: translateY(-5px);
+          border-color: var(--accent);
+          box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+        }
+        .member-overlay {
+          position: absolute; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; backdrop-filter: blur(3px); cursor: pointer;
+        }
+        .role-card:hover .member-overlay { opacity: 1; }
+        .linkedin-btn {
+          width: 60px; height: 60px; background: #0077b5; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; transform: scale(0.8); transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .role-card:hover .linkedin-btn { transform: scale(1); }
+
+        /* MOBILE LINKEDIN BTN STYLE */
+        .mobile-linkedin-btn {
+          position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; background: #0077b5; color: white; border-radius: 50%; display: none; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        /* SCROLL TO TOP BTN */
+        .scroll-top-btn {
+          position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--accent); color: white; border: none; border-radius: 50%; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: transform 0.2s; z-index: 1000;
+        }
+        .scroll-top-btn:hover { transform: translateY(-3px); }
+
         .role-head { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-sub); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .role-desc { font-size: 12px; color: var(--text); opacity: 0.9; line-height: 1.3; }
         .field-group { margin-bottom: 20px; }
@@ -709,7 +1011,8 @@ function GlobalStyles({ theme }) {
         .success-badge { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--accent); color: var(--accent); font-size: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
         .fade-in { animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .site-footer { border-top: 1px solid var(--border); background: var(--header-bg); padding: 60px 40px; margin-top: auto; }
+        /* FIXED FOOTER Z-INDEX */
+        .site-footer { border-top: 1px solid var(--border); background: var(--header-bg); padding: 60px 40px; margin-top: auto; position: relative; z-index: 2; }
         .footer-content-wrapper { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
         .footer-col { flex: 1; min-width: 250px; }
         .contact-item { margin-bottom: 16px; }
@@ -719,6 +1022,8 @@ function GlobalStyles({ theme }) {
         body.light .map-frame iframe { filter: grayscale(100%) opacity(0.8); }
         body.light .map-frame:hover iframe { filter: none; }
         .footer-copyright { max-width: 1200px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 13px; }
+        
+        /* MOBILE STYLES */
         @media (max-width: 600px) {
            .hero-title { font-size: 40px; }
            .fixed-header { height: 70px; padding: 0 20px; }
@@ -731,6 +1036,16 @@ function GlobalStyles({ theme }) {
            .role-card { padding: 10px 8px; }
            .site-footer { padding: 40px 20px; }
            .footer-content-wrapper { flex-direction: column; }
+           
+           /* Disable Hover Overlay on Mobile */
+           .member-overlay { display: none !important; }
+           .role-card:hover { transform: none; box-shadow: none; border-color: var(--border); }
+           
+           /* Enable Static Button on Mobile */
+           .mobile-linkedin-btn { display: flex; }
+
+           /* Hide Scroll Top Button on Mobile */
+           .scroll-top-btn { display: none !important; }
         }
     `}</style>
   );
