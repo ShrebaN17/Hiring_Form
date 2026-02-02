@@ -659,7 +659,7 @@ export default function App() {
             allowFullScreen
             style={{ maxWidth: '100vw', maxHeight: '50vh' }}
           ></iframe>
-          <button onClick={() => setShowRickRoll(false)} style={{ marginTop: "30px", padding: "10px 20px", background: "#333", color: "white", border: "none", borderRadius: "5px", cursor: "pointer", fontFamily: "'Inter', sans-serif" }}>I understand, take me back</button>
+          <button onClick={() => setShowRickRoll(false)} style={{ marginTop: "30px", padding: "10px 20px", background: "#333", color: "white", border: "none", borderRadius: "5px", cursor: "pointer", fontFamily: "'Inter', sans-serif" }}>I understand, take me back :')</button>
         </div>
       )}
 
