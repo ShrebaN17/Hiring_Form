@@ -213,7 +213,7 @@ function AdminPanel() {
     
     setLoading(true);
     
-    const { data, error } = await supabase.auth.signInWithPassword({ 
+    const { error } = await supabase.auth.signInWithPassword({ 
       email: authEmail, 
       password: authPass 
     });
@@ -222,8 +222,9 @@ function AdminPanel() {
       alert(error.message); 
       setLoading(false); 
     } else { 
-      setSession(data.session);
-      await fetchApplicants();
+      // Session updates automatically via onAuthStateChange in typical apps, 
+      // but manual reload here ensures cleaner flow if listeners lag.
+      window.location.reload(); 
     }
   };
 
@@ -451,16 +452,25 @@ function WhoIsThisFor() {
 function Team() {
   return (
     <div className="page-content-wrapper">
-      <div className="content-box fade-in" style={{ maxWidth: 1000 }}>
+      <div className="content-box fade-in" style={{ maxWidth: 1200, width: '100%' }}>
         <h1 className="hero-title" style={{ textAlign: "center" }}>Our Team</h1>
         <p className="hero-desc" style={{ textAlign: "center", marginBottom: 40 }}>The minds behind Aakaar.io.</p>
-        <div className="role-grid" style={{ justifyContent: 'center', gap: 20 }}>
+        
+        {/* CSS Grid for 3x3 Layout - Fixes the squeezing issue */}
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+          gap: '20px',
+          justifyContent: 'center'
+        }}>
            {TEAM_MEMBERS.map((m, i) => (
-             <div key={i} className="role-card" style={{ flexBasis: "280px", textAlign: "center", padding: "30px 20px" }}>
-               <div style={{ width: 80, height: 80, background: "rgba(255,90,60,0.1)", borderRadius: "50%", margin: "0 auto 20px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, color: "#ff5a3c", border: "1px solid rgba(255,90,60,0.2)" }}>{m.name.charAt(0)}</div>
-               <h3 style={{ fontSize: 18, marginBottom: 4, color: "var(--text)" }}>{m.name}</h3>
-               <div style={{ fontSize: 12, color: "#ff5a3c", textTransform: "uppercase", marginBottom: 12 }}>{m.role}</div>
-               <p style={{ fontSize: 13, color: "var(--text-sub)" }}>{m.bio}</p>
+             <div key={i} className="role-card" style={{ textAlign: "center", padding: "40px 20px" }}>
+               <div style={{ width: 100, height: 100, background: "rgba(255,90,60,0.1)", borderRadius: "50%", margin: "0 auto 24px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, color: "#ff5a3c", border: "1px solid rgba(255,90,60,0.2)" }}>
+                 {m.name.charAt(0)}
+               </div>
+               <h3 style={{ fontSize: 20, marginBottom: 8, color: "var(--text)" }}>{m.name}</h3>
+               <div style={{ fontSize: 13, color: "#ff5a3c", textTransform: "uppercase", marginBottom: 16, letterSpacing: 1, fontWeight: 600 }}>{m.role}</div>
+               <p style={{ fontSize: 14, color: "var(--text-sub)", lineHeight: 1.6 }}>{m.bio}</p>
              </div>
            ))}
         </div>
@@ -614,7 +624,7 @@ export default function App() {
             allowFullScreen
             style={{ maxWidth: '100vw', maxHeight: '50vh' }}
           ></iframe>
-          <button onClick={() => setShowRickRoll(false)} style={{ marginTop: "30px", padding: "10px 20px", background: "#333", color: "white", border: "none", borderRadius: "5px", cursor: "pointer", fontFamily: "'Inter', sans-serif" }}>I understand, take me back :')</button>
+          <button onClick={() => setShowRickRoll(false)} style={{ marginTop: "30px", padding: "10px 20px", background: "#333", color: "white", border: "none", borderRadius: "5px", cursor: "pointer", fontFamily: "'Inter', sans-serif" }}>I understand, take me back</button>
         </div>
       )}
 
@@ -680,7 +690,7 @@ function GlobalStyles({ theme }) {
         .mobile-link { background: none; border: none; color: var(--text-sub); font-size: 16px; font-weight: 500; text-align: left; padding: 10px; cursor: pointer; border-radius: 8px; font-family: 'Inter', sans-serif; }
         .mobile-link:hover { background: var(--input-bg); color: var(--text); }
         .mobile-socials { display: flex; gap: 24px; padding: 10px; margin-top: 10px; border-top: 1px solid var(--border); padding-top: 20px; }
-        .page-content-wrapper { padding-top: 100px; padding-bottom: 40px; padding-left: 20px; padding-right: 20px; display: flex; justify-content: center; flex: 1; width: 100%; box-sizing: border-box; }
+        .page-content-wrapper { padding-top: 100px; padding-bottom: 40px; padding-left: 20px; padding-right: 20px; display: flex; justify-content: center; flex: 1; width: 100%; box-sizing: border-box; flex-direction: column; align-items: center; }
         .content-box { width: 100%; max-width: 600px; position: relative; }
         .landing-box { text-align: center; }
         .form-box { text-align: left; padding-bottom: 40px; }
