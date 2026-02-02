@@ -24,16 +24,63 @@ const ROLES = [
 const YEAR_OPTIONS = ["In School", "1st Year", "2nd Year", "3rd Year", "4th Year", "Graduated"];
 const COUNTRY_CODES = ["+91", "+1", "+44", "+61", "+81", "+49", "+33", "+86"];
 
+// TEAM DATA - Now with 'img' field
+// Put your images in the 'public' folder and reference them here (e.g. "/ceo.jpg")
 const TEAM_MEMBERS = [
-  { name: "Member Name", role: "Co-Founder / CEO", bio: "Leading the vision and strategy." },
-  { name: "Member Name", role: "Co-Founder / CTO", bio: "Architecting the core technology." },
-  { name: "Member Name", role: "Lead AI Engineer", bio: "Building our LLM infrastructure." },
-  { name: "Member Name", role: "Senior Full Stack", bio: "Crafting the user experience." },
-  { name: "Member Name", role: "Frontend Developer", bio: "Pixel-perfect UI implementation." },
-  { name: "Member Name", role: "Backend Developer", bio: "Ensuring scalability and security." },
-  { name: "Member Name", role: "Product Designer", bio: "Designing intuitive interfaces." },
-  { name: "Member Name", role: "Marketing Lead", bio: "Spreading the word about Aakaar." },
-  { name: "Member Name", role: "Operations", bio: "Keeping the ship moving forward." },
+  { 
+    name: "Priyangshu Dey", 
+    role: "Co-Founder / CEO", 
+    bio: "Focused on building reliable, trust-first products that solve real operational problems. Leads product direction, vision, and long-term strategy, with hands-on involvement in shaping how users experience the platform from first interaction to deployment.", 
+    img: "/team/Priyangshu.jpg" // <--- REPLACE THIS WITH YOUR IMAGE PATH
+  },
+  { 
+    name: "Arman Das", 
+    role: "Co-Founder / CTO", 
+    bio: "Leads the technical architecture and infrastructure behind the product. Responsible for building scalable, secure, and dependable systems, with a strong focus on deployment reliability, system integrity, and long-term technical sustainability.", 
+    img: "/team/Arman.jpg" // Leave empty to show initials
+  },
+  { 
+    name: "Shreyas Bhanja", 
+    role: "Co-Founder / COO", 
+    bio: "Oversees execution, operations, and business systems. Focused on turning product ideas into repeatable processes, ensuring smooth collaboration across teams, and building the operational foundation needed to scale responsibly and sustainably.", 
+    img: "/team/Shreyas.jpg" // Leave empty to show initials
+  },
+  { 
+    name: "Hardik Chaturvedi", 
+    role: "AI/Ml Developer", 
+    bio: "Responsible for building and maintaining the AI systems that drive core product functionality. Works closely with engineering and product teams to ensure AI outputs are reliable, controllable, and aligned with real user needs in production environments.", 
+    img: "/team/" // Leave empty to show initials
+  },
+  { 
+    name: "Arkajyoti Roy", 
+    role: "Frontend Developer", 
+    bio: "Responsible for crafting intuitive, clean, and functional user interfaces. Focused on translating complex systems into simple, usable experiences that feel calm, reliable, and easy to navigate for non-technical users.", 
+    img: "/team/" // Leave empty to show initials
+  },
+  { 
+    name: "Awani Rashmi", 
+    role: "Frontend Developer", 
+    bio: "Responsible for crafting intuitive, clean, and functional user interfaces. Focused on translating complex systems into simple, usable experiences that feel calm, reliable, and easy to navigate for non-technical users.", 
+    img: "/team/" // Leave empty to show initials
+  },
+  { 
+    name: "Ghanan Dhamija", 
+    role: "Product Designer", 
+    bio: "Works on visual identity, layout systems, and design consistency across the platform. Ensures the product communicates clarity, trust, and professionalism through thoughtful design choices.", 
+    img: "/team/" // Leave empty to show initials
+  },
+  { 
+    name: "Srinjoy Debnath", 
+    role: "Product Designer", 
+    bio: "Works on visual identity, layout systems, and design consistency across the platform. Ensures the product communicates clarity, trust, and professionalism through thoughtful design choices.", 
+    img: "/team/" // Leave empty to show initials
+  },
+  { 
+    name: "Om Suryawanshi", 
+    role: "Advisor - System & Security", 
+    bio: "Provides strategic guidance on system design, security, and long-term technical resilience. Supports the team in building secure and dependable infrastructure as the product matures.", 
+    img: "/team/" // Leave empty to show initials
+  },
 ];
 
 const ROLE_QUESTIONS = {
@@ -448,6 +495,9 @@ function WhoIsThisFor() {
   );
 }
 
+// ──────────────────────────────────────────
+// TEAM PAGE (Updated for Image Support)
+// ──────────────────────────────────────────
 function Team() {
   return (
     <div className="page-content-wrapper">
@@ -464,9 +514,28 @@ function Team() {
         }}>
            {TEAM_MEMBERS.map((m, i) => (
              <div key={i} className="role-card" style={{ textAlign: "center", padding: "40px 20px" }}>
-               <div style={{ width: 100, height: 100, background: "rgba(255,90,60,0.1)", borderRadius: "50%", margin: "0 auto 24px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, color: "#ff5a3c", border: "1px solid rgba(255,90,60,0.2)" }}>
-                 {m.name.charAt(0)}
-               </div>
+               
+               {/* IMAGE LOGIC: If img exists, show it. If not, show Initials. */}
+               {m.img ? (
+                 <img 
+                   src={m.img} 
+                   alt={m.name} 
+                   style={{ 
+                     width: 100, 
+                     height: 100, 
+                     borderRadius: "50%", 
+                     margin: "0 auto 24px", 
+                     objectFit: "cover", 
+                     border: "1px solid rgba(255,90,60,0.2)",
+                     display: "block"
+                   }} 
+                 />
+               ) : (
+                 <div style={{ width: 100, height: 100, background: "rgba(255,90,60,0.1)", borderRadius: "50%", margin: "0 auto 24px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, color: "#ff5a3c", border: "1px solid rgba(255,90,60,0.2)" }}>
+                   {m.name.charAt(0)}
+                 </div>
+               )}
+
                <h3 style={{ fontSize: 20, marginBottom: 8, color: "var(--text)" }}>{m.name}</h3>
                <div style={{ fontSize: 13, color: "#ff5a3c", textTransform: "uppercase", marginBottom: 16, letterSpacing: 1, fontWeight: 600 }}>{m.role}</div>
                <p style={{ fontSize: 14, color: "var(--text-sub)", lineHeight: 1.6 }}>{m.bio}</p>
