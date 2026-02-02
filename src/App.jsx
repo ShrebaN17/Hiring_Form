@@ -31,19 +31,19 @@ const TEAM_MEMBERS = [
     name: "Priyangshu Dey", 
     role: "Co-Founder / CEO", 
     bio: "Focused on building reliable, trust-first products that solve real operational problems. Leads product direction, vision, and long-term strategy, with hands-on involvement in shaping how users experience the platform from first interaction to deployment.", 
-    img: "public/team/Priyangshu.jpg" // <--- REPLACE THIS WITH YOUR IMAGE PATH
+    img: "public/team/priyangshu.jpg" // <--- REPLACE THIS WITH YOUR IMAGE PATH
   },
   { 
     name: "Arman Das", 
     role: "Co-Founder / CTO", 
     bio: "Leads the technical architecture and infrastructure behind the product. Responsible for building scalable, secure, and dependable systems, with a strong focus on deployment reliability, system integrity, and long-term technical sustainability.", 
-    img: "public/team/Arman.jpg" // Leave empty to show initials
+    img: "public/team/arman.jpg" // Leave empty to show initials
   },
   { 
     name: "Shreyas Bhanja", 
     role: "Co-Founder / COO", 
     bio: "Oversees execution, operations, and business systems. Focused on turning product ideas into repeatable processes, ensuring smooth collaboration across teams, and building the operational foundation needed to scale responsibly and sustainably.", 
-    img: "public/team/Shreyas.jpg" // Leave empty to show initials
+    img: "public/team/shreyas.jpg" // Leave empty to show initials
   },
   { 
     name: "Hardik Chaturvedi", 
@@ -79,7 +79,7 @@ const TEAM_MEMBERS = [
     name: "Om Suryawanshi", 
     role: "Advisor - System & Security", 
     bio: "Provides strategic guidance on system design, security, and long-term technical resilience. Supports the team in building secure and dependable infrastructure as the product matures.", 
-    img: "public/team/" // Leave empty to show initials
+    img: "public/team/om.jpg" // Leave empty to show initials
   },
 ];
 
