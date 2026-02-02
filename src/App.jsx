@@ -24,62 +24,70 @@ const ROLES = [
 const YEAR_OPTIONS = ["In School", "1st Year", "2nd Year", "3rd Year", "4th Year", "Graduated"];
 const COUNTRY_CODES = ["+91", "+1", "+44", "+61", "+81", "+49", "+33", "+86"];
 
-// TEAM DATA - Now with 'img' field
-// Put your images in the 'public' folder and reference them here (e.g. "/ceo.jpg")
+// TEAM DATA - Preserved your entries + added 'linkedin' field
 const TEAM_MEMBERS = [
   { 
     name: "Priyangshu Dey", 
     role: "Co-Founder / CEO", 
-    bio: "Focused on building reliable, trust-first products that solve real operational problems. Leads product direction, vision, and long-term strategy, with hands-on involvement in shaping how users experience the platform from first interaction to deployment.", 
-    img: "/team/member1.jpg" // <--- REPLACE THIS WITH YOUR IMAGE PATH
+    bio: "Focused on building reliable, trust-first products that solve real operational problems. Leads product direction, vision, and long-term strategy.", 
+    img: "/team/member1.jpg",
+    linkedin: "https://www.linkedin.com/in/priyangshu-dey-371608275/" // <--- Add actual link here
   },
   { 
     name: "Arman Das", 
     role: "Co-Founder / CTO", 
-    bio: "Leads the technical architecture and infrastructure behind the product. Responsible for building scalable, secure, and dependable systems, with a strong focus on deployment reliability, system integrity, and long-term technical sustainability.", 
-    img: "/team/member2.jpg" // Leave empty to show initials
+    bio: "Leads the technical architecture and infrastructure. Responsible for building scalable, secure, and dependable systems.", 
+    img: "/team/member2.jpg",
+    linkedin: "https://www.linkedin.com/in/work-arman-das/"
   },
   { 
     name: "Shreyas Bhanja", 
     role: "Co-Founder / COO", 
-    bio: "Oversees execution, operations, and business systems. Focused on turning product ideas into repeatable processes, ensuring smooth collaboration across teams, and building the operational foundation needed to scale responsibly and sustainably.", 
-    img: "/team/member3.jpg" // Leave empty to show initials
+    bio: "Oversees execution, operations, and business systems. Focused on turning product ideas into repeatable processes.", 
+    img: "/team/member3.jpg",
+    linkedin: "https://www.linkedin.com/in/shreyasbhanja/"
   },
   { 
     name: "Hardik Chaturvedi", 
-    role: "AI/Ml Developer", 
-    bio: "Responsible for building and maintaining the AI systems that drive core product functionality. Works closely with engineering and product teams to ensure AI outputs are reliable, controllable, and aligned with real user needs in production environments.", 
-    img: "/team/member4.jpg" // Leave empty to show initials
+    role: "AI/ML Developer", 
+    bio: "Responsible for building and maintaining the AI systems that drive core product functionality.", 
+    img: "/team/member4.jpg",
+    linkedin: "https://www.linkedin.com/in/hardik-chaturvedi-9ba62437a/"
   },
   { 
     name: "Arkajyoti Roy", 
     role: "Frontend Developer", 
-    bio: "Responsible for crafting intuitive, clean, and functional user interfaces. Focused on translating complex systems into simple, usable experiences that feel calm, reliable, and easy to navigate for non-technical users.", 
-    img: "/team/member4.jpg" // Leave empty to show initials
+    bio: "Responsible for crafting intuitive, clean, and functional user interfaces.", 
+    img: "/team/member4.jpg", // Note: Duplicate image path from your file
+    linkedin: "#"
   },
   { 
     name: "Awani Rashmi", 
     role: "Frontend Developer", 
-    bio: "Responsible for crafting intuitive, clean, and functional user interfaces. Focused on translating complex systems into simple, usable experiences that feel calm, reliable, and easy to navigate for non-technical users.", 
-    img: "/team/member6.jpg" // Leave empty to show initials
+    bio: "Focused on translating complex systems into simple, usable experiences that feel calm and reliable.", 
+    img: "/team/member6.jpg",
+    linkedin: "https://www.linkedin.com/in/awani-rashmi-031463320/"
   },
   { 
     name: "Ghanan Dhamija", 
     role: "Product Designer", 
-    bio: "Works on visual identity, layout systems, and design consistency across the platform. Ensures the product communicates clarity, trust, and professionalism through thoughtful design choices.", 
-    img: "/team/member5.jpg" // Leave empty to show initials
+    bio: "Works on visual identity, layout systems, and design consistency across the platform.", 
+    img: "/team/member5.jpg",
+    linkedin: "#"
   },
   { 
     name: "Srinjoy Debnath", 
     role: "Product Designer", 
-    bio: "Works on visual identity, layout systems, and design consistency across the platform. Ensures the product communicates clarity, trust, and professionalism through thoughtful design choices.", 
-    img: "/team/member8.jpg" // Leave empty to show initials
+    bio: "Ensures the product communicates clarity, trust, and professionalism through thoughtful design.", 
+    img: "/team/member8.jpg",
+    linkedin: "https://www.linkedin.com/in/srinjoy-debnath-a27470266/"
   },
   { 
     name: "Om Suryawanshi", 
     role: "Advisor - System & Security", 
-    bio: "Provides strategic guidance on system design, security, and long-term technical resilience. Supports the team in building secure and dependable infrastructure as the product matures.", 
-    img: "/team/member9.jpg" // Leave empty to show initials
+    bio: "Provides strategic guidance on system design, security, and long-term technical resilience.", 
+    img: "/team/member9.jpg",
+    linkedin: "https://www.linkedin.com/in/om-suryawanshi-262165242/"
   },
 ];
 
@@ -496,7 +504,7 @@ function WhoIsThisFor() {
 }
 
 // ──────────────────────────────────────────
-// TEAM PAGE (Updated for Image Support)
+// TEAM PAGE (Updated for Hover & LinkedIn)
 // ──────────────────────────────────────────
 function Team() {
   return (
@@ -539,6 +547,15 @@ function Team() {
                <h3 style={{ fontSize: 20, marginBottom: 8, color: "var(--text)" }}>{m.name}</h3>
                <div style={{ fontSize: 13, color: "#ff5a3c", textTransform: "uppercase", marginBottom: 16, letterSpacing: 1, fontWeight: 600 }}>{m.role}</div>
                <p style={{ fontSize: 14, color: "var(--text-sub)", lineHeight: 1.6 }}>{m.bio}</p>
+
+               {/* HOVER OVERLAY FOR LINKEDIN */}
+               {m.linkedin && (
+                 <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="member-overlay">
+                   <div className="linkedin-btn">
+                     <LinkedinIcon />
+                   </div>
+                 </a>
+               )}
              </div>
            ))}
         </div>
@@ -806,7 +823,26 @@ function GlobalStyles({ theme }) {
         .badge { display: inline-block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(255,90,60,0.4); padding: 5px 12px; border-radius: 20px; background: rgba(255,90,60,0.05); }
         .micro-text { font-size: 12px; color: var(--text-muted); margin-top: 16px; }
         .role-grid { display: flex; flex-wrap: nowrap; justify-content: center; gap: 12px; margin-bottom: 40px; width: 100%; }
-        .role-card { flex: 1; min-width: 0; background: var(--glass-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; text-align: left; }
+        
+        /* TEAM CARD HOVER EFFECTS */
+        .role-card { 
+          flex: 1; min-width: 0; background: var(--glass-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; text-align: left; 
+          position: relative; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .role-card:hover {
+          transform: translateY(-5px);
+          border-color: var(--accent);
+          box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+        }
+        .member-overlay {
+          position: absolute; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; backdrop-filter: blur(3px); cursor: pointer;
+        }
+        .role-card:hover .member-overlay { opacity: 1; }
+        .linkedin-btn {
+          width: 60px; height: 60px; background: #0077b5; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; transform: scale(0.8); transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .role-card:hover .linkedin-btn { transform: scale(1); }
+
         .role-head { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-sub); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .role-desc { font-size: 12px; color: var(--text); opacity: 0.9; line-height: 1.3; }
         .field-group { margin-bottom: 20px; }
