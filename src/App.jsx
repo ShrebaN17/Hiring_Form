@@ -405,7 +405,7 @@ function Footer() {
         </div>
         <div className="footer-col map-col">
           <div className="map-frame">
-            <iframe src="https://maps.google.com/maps?q=KIIT+University+Bhubaneswar&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy"></iframe>
+            <iframe src="https://maps.google.com/maps?q=Kings%20Palace%202%2C%20Prasanti%20Vihar%20Rd%2C%20Bhubaneswar&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy"></iframe>
           </div>
           <div style={{ marginTop: 10, fontSize: 12, color: "var(--text-muted)", textAlign: "right" }}>KIIT University, Patia, Bhubaneswar, Odisha 751024</div>
         </div>
