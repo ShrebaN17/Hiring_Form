@@ -511,7 +511,7 @@ function Team() {
     <div className="page-content-wrapper">
       <div className="content-box fade-in" style={{ maxWidth: 1200, width: '100%' }}>
         <h1 className="hero-title" style={{ textAlign: "center" }}>Our Team</h1>
-        <p className="hero-desc" style={{ textAlign: "center", marginBottom: 40 }}>We’re college students building a real world product with serious intent. Born out of frustration, driven by curiosity, and focused on making websites easy to build, deploy, and trust.</p>
+        <p className="hero-desc" style={{ textAlign: "center", marginBottom: 40 }}>The minds behind Aakaar.io.</p>
         
         {/* CSS Grid for 3x3 Layout - Fixes the squeezing issue */}
         <div style={{ 
