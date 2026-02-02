@@ -475,12 +475,16 @@ function About() {
     <div className="page-content-wrapper">
       <div className="content-box fade-in" style={{ textAlign: "left", maxWidth: 640 }}>
         <h1 className="hero-title">About Us</h1>
-        <p className="hero-desc">Building the future of web development.</p>
+        <p className="hero-desc">We’re college students building a dependable way to build, deploy, and manage websites.</p>
         <div className="glass-box">
            <h3 className="section-title">What We Do</h3>
-           <p style={{ color: "var(--text-sub)", lineHeight: 1.7, marginBottom: 40 }}>BuildAI is an AI-powered platform designed to democratize software creation. We are building tools that allow anyone—regardless of their technical background—to generate, deploy, and scale web applications using natural language. We believe that the barrier to entry for building great products should be imagination, not syntax.</p>
+           <p style={{ color: "var(--text-sub)", lineHeight: 1.7, marginBottom: 40 }}>We’re a team of college students building a real world product with serious intent. What started as frustration with how complex and unreliable website building can be turned into a focused effort to simplify the entire process from building to deployment and beyond.
+
+We believe good technology should feel dependable, calm, and easy to trust. That belief drives how we build, how we test, and how we ship. We move fast, learn constantly, and take ownership of what we put out into the world.
+
+This is not a side project for us. We’re building with the goal of turning this into something lasting.</p>
            <h3 className="section-title">Our Vision</h3>
-           <p style={{ color: "var(--text-sub)", lineHeight: 1.7 }}>We envision a world where software development is accessible to everyone.</p>
+           <p style={{ color: "var(--text-sub)", lineHeight: 1.7 }}>We envision a future where businesses do not need to worry about tools, deployments, or technical complexity. Our goal is to become the trusted layer that quietly handles digital infrastructure end to end.</p>
         </div>
       </div>
     </div>
