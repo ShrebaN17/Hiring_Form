@@ -536,6 +536,9 @@ function FormPage({ onBack }) {
     return Object.keys(e).length === 0;
   };
 
+  const next = () => { if (validate()) setStep((s) => s + 1); };
+  const back = () => { setErrors({}); setStep((s) => s - 1); };
+
   const handleSubmit = async () => {
     if (!validate()) return;
     if (basics.honeypot || (Date.now() - startTime.current < 5000)) { alert("Submission rejected."); return; }
