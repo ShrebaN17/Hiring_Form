@@ -72,7 +72,7 @@ const TEAM_MEMBERS = [
     name: "Ghanan Dhamija", 
     role: "Product Designer", 
     bio: "Works on visual identity, layout systems, and design consistency across the platform.", 
-    img: "/team/member5.jpg",
+    img: "/team/member7.jpeg",
     linkedin: "#"
   },
   { 
