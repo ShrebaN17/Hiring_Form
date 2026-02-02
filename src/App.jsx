@@ -30,7 +30,7 @@ const TEAM_MEMBERS = [
     name: "Priyangshu Dey", 
     role: "Co-Founder / CEO", 
     bio: "Focused on building reliable, trust-first products that solve real operational problems. Leads product direction, vision, and long-term strategy.", 
-    img: "/team/member1.jpg",
+    img: "/team/member1.jpeg",
     linkedin: "https://www.linkedin.com/in/priyangshu-dey-371608275/" 
   },
   { 
@@ -70,15 +70,15 @@ const TEAM_MEMBERS = [
   },
   { 
     name: "Ghanan Dhamija", 
-    role: "Designer", 
-    bio: "Works on visual identity, layout systems, and design consistency across the platform.", 
+    role: "Product Designer", 
+    bio: "Ensures the product communicates clarity, trust, and professionalism through thoughtful design.", 
     img: "/team/member7.jpeg",
     linkedin: "#"
   },
   { 
     name: "Srinjoy Debnath", 
     role: "Product Designer", 
-    bio: "Ensures the product communicates clarity, trust, and professionalism through thoughtful design.", 
+    bio: "Works on visual identity, layout systems, and design consistency across the platform.", 
     img: "/team/member8.jpg",
     linkedin: "https://www.linkedin.com/in/srinjoy-debnath-a27470266/"
   },
@@ -197,6 +197,24 @@ function QuestionBlock({ q, value, onChange, error }) {
       <ErrorMsg msg={error} />
     </div>
   );
+}
+
+// SCROLL TO TOP COMPONENT
+function ScrollToTop() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => setShow(window.scrollY > 300);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
+  return show ? (
+    <button onClick={scrollToTop} className="scroll-top-btn" aria-label="Scroll to top">
+      ↑
+    </button>
+  ) : null;
 }
 
 function CursorBlob() {
@@ -428,6 +446,14 @@ function Footer() {
           <div className="logo-text" style={{ color: "#ff5a3c", marginBottom: 20, fontSize: 24 }}>AAKAAR.io</div>
           <div className="contact-item"><span style={{ color: "var(--text-muted)", fontSize: 12 }}>Email</span><div style={{ marginTop: 4 }}>support@aakario.com</div></div>
           <div className="contact-item"><span style={{ color: "var(--text-muted)", fontSize: 12 }}>Phone</span><div style={{ marginTop: 4 }}>+91 8280669173</div></div>
+          
+          {/* ADDED SOCIAL ICONS TO FOOTER */}
+          <div style={{ marginTop: 20, display: 'flex', gap: 16 }}>
+            <a href="https://www.instagram.com/aakaar.io/" className="social-icon"><InstagramIcon /></a>
+            <a href="https://www.linkedin.com/company/aakaario/" className="social-icon"><LinkedinIcon /></a>
+            <a href="https://x.com/aakaario" className="social-icon"><TwitterIcon /></a>
+          </div>
+
           <div style={{ marginTop: 30, display: 'flex', gap: 15 }}>
              <a href="#" style={{ color: 'var(--text-sub)', fontSize: 13 }}>Privacy Policy</a>
              <a href="#" style={{ color: 'var(--text-sub)', fontSize: 13 }}>Terms of Service</a>
@@ -527,12 +553,19 @@ function Team() {
                <div style={{ fontSize: 13, color: "#ff5a3c", textTransform: "uppercase", marginBottom: 16, letterSpacing: 1, fontWeight: 600 }}>{m.role}</div>
                <p style={{ fontSize: 14, color: "var(--text-sub)", lineHeight: 1.6 }}>{m.bio}</p>
 
-               {/* HOVER OVERLAY FOR LINKEDIN */}
+               {/* DESKTOP HOVER OVERLAY */}
                {m.linkedin && (
-                 <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="member-overlay">
+                 <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="member-overlay desktop-overlay">
                    <div className="linkedin-btn">
                      <LinkedinIcon />
                    </div>
+                 </a>
+               )}
+
+               {/* MOBILE STATIC BUTTON (Top Right Corner) */}
+               {m.linkedin && (
+                 <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="mobile-linkedin-btn">
+                   <LinkedinIcon />
                  </a>
                )}
              </div>
@@ -551,7 +584,7 @@ function Landing({ onStart }) {
   return (
     <div className="page-content-wrapper">
       <div className="content-box landing-box">
-        <div style={{ ...rv(0), marginBottom: 32 }}><span className="badge">● Early Access — We're hiring</span></div>
+        <div style={{ ...rv(0), marginBottom: 32 }}><span className="badge">● Early Access — Collaborate with us!</span></div>
         <h1 style={rv(1)} className="hero-title">Help us build<br /><span className="highlight">the future</span><br />of the web.</h1>
         <p style={rv(2)} className="hero-desc">We're an early-stage team building an AI product that lets anyone generate and launch websites — no code required.</p>
         <div style={{ ...rv(3) }} className="role-grid">
@@ -728,12 +761,13 @@ export default function App() {
         </div>
       )}
 
-      {/* NEW ANIMATED BACKGROUND BLOBS */}
-      <div style={{ position: "fixed", top: "20%", right: "-100px", width: "500px", height: "500px", background: "rgba(255,90,60,0.08)", filter: "blur(120px)", borderRadius: "50%", zIndex: 0, animation: "float 10s infinite ease-in-out" }} />
-      <div style={{ position: "fixed", bottom: "-100px", left: "-100px", width: "400px", height: "400px", background: "rgba(60,60,200,0.08)", filter: "blur(120px)", borderRadius: "50%", zIndex: 0, animation: "float 14s infinite ease-in-out reverse" }} />
-      <div style={{ position: "fixed", top: "40%", left: "40%", width: "300px", height: "300px", background: "rgba(120,50,200,0.06)", filter: "blur(100px)", borderRadius: "50%", zIndex: 0, animation: "float 12s infinite ease-in-out 2s" }} />
+      {/* NEW ANIMATED BACKGROUND BLOBS - FIXED POINTER EVENTS */}
+      <div style={{ position: "fixed", top: "20%", right: "-100px", width: "500px", height: "500px", background: "rgba(255,90,60,0.08)", filter: "blur(120px)", borderRadius: "50%", zIndex: 0, animation: "float 10s infinite ease-in-out", pointerEvents: "none" }} />
+      <div style={{ position: "fixed", bottom: "-100px", left: "-100px", width: "400px", height: "400px", background: "rgba(60,60,200,0.08)", filter: "blur(120px)", borderRadius: "50%", zIndex: 0, animation: "float 14s infinite ease-in-out reverse", pointerEvents: "none" }} />
+      <div style={{ position: "fixed", top: "40%", left: "40%", width: "300px", height: "300px", background: "rgba(120,50,200,0.06)", filter: "blur(100px)", borderRadius: "50%", zIndex: 0, animation: "float 12s infinite ease-in-out 2s", pointerEvents: "none" }} />
       
       <CursorBlob />
+      <ScrollToTop />
       
       {/* Pass setShowRickRoll to toggleTheme prop */}
       <FixedHeader 
@@ -814,7 +848,7 @@ function GlobalStyles({ theme }) {
         .micro-text { font-size: 12px; color: var(--text-muted); margin-top: 16px; }
         .role-grid { display: flex; flex-wrap: nowrap; justify-content: center; gap: 12px; margin-bottom: 40px; width: 100%; }
         
-        /* TEAM CARD HOVER EFFECTS */
+        /* TEAM CARD STYLES */
         .role-card { 
           flex: 1; min-width: 0; background: var(--glass-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; text-align: left; 
           position: relative; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -832,6 +866,17 @@ function GlobalStyles({ theme }) {
           width: 60px; height: 60px; background: #0077b5; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; transform: scale(0.8); transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
         .role-card:hover .linkedin-btn { transform: scale(1); }
+
+        /* MOBILE LINKEDIN BTN STYLE */
+        .mobile-linkedin-btn {
+          position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; background: #0077b5; color: white; border-radius: 50%; display: none; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        /* SCROLL TO TOP BTN */
+        .scroll-top-btn {
+          position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--accent); color: white; border: none; border-radius: 50%; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: transform 0.2s; z-index: 1000;
+        }
+        .scroll-top-btn:hover { transform: translateY(-3px); }
 
         .role-head { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-sub); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .role-desc { font-size: 12px; color: var(--text); opacity: 0.9; line-height: 1.3; }
@@ -856,7 +901,8 @@ function GlobalStyles({ theme }) {
         .success-badge { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--accent); color: var(--accent); font-size: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
         .fade-in { animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .site-footer { border-top: 1px solid var(--border); background: var(--header-bg); padding: 60px 40px; margin-top: auto; }
+        /* FIXED FOOTER Z-INDEX */
+        .site-footer { border-top: 1px solid var(--border); background: var(--header-bg); padding: 60px 40px; margin-top: auto; position: relative; z-index: 2; }
         .footer-content-wrapper { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
         .footer-col { flex: 1; min-width: 250px; }
         .contact-item { margin-bottom: 16px; }
@@ -866,6 +912,8 @@ function GlobalStyles({ theme }) {
         body.light .map-frame iframe { filter: grayscale(100%) opacity(0.8); }
         body.light .map-frame:hover iframe { filter: none; }
         .footer-copyright { max-width: 1200px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 13px; }
+        
+        /* MOBILE STYLES */
         @media (max-width: 600px) {
            .hero-title { font-size: 40px; }
            .fixed-header { height: 70px; padding: 0 20px; }
@@ -878,6 +926,16 @@ function GlobalStyles({ theme }) {
            .role-card { padding: 10px 8px; }
            .site-footer { padding: 40px 20px; }
            .footer-content-wrapper { flex-direction: column; }
+           
+           /* Disable Hover Overlay on Mobile */
+           .member-overlay { display: none !important; }
+           .role-card:hover { transform: none; box-shadow: none; border-color: var(--border); }
+           
+           /* Enable Static Button on Mobile */
+           .mobile-linkedin-btn { display: flex; }
+
+           /* Hide Scroll Top Button on Mobile */
+           .scroll-top-btn { display: none !important; }
         }
     `}</style>
   );
