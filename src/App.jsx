@@ -49,31 +49,31 @@ const TEAM_MEMBERS = [
     name: "Hardik Chaturvedi", 
     role: "AI/Ml Developer", 
     bio: "Responsible for building and maintaining the AI systems that drive core product functionality. Works closely with engineering and product teams to ensure AI outputs are reliable, controllable, and aligned with real user needs in production environments.", 
-    img: "/team/" // Leave empty to show initials
+    img: "/team/member4.jpg" // Leave empty to show initials
   },
   { 
     name: "Arkajyoti Roy", 
     role: "Frontend Developer", 
     bio: "Responsible for crafting intuitive, clean, and functional user interfaces. Focused on translating complex systems into simple, usable experiences that feel calm, reliable, and easy to navigate for non-technical users.", 
-    img: "/team/" // Leave empty to show initials
+    img: "/team/member4.jpg" // Leave empty to show initials
   },
   { 
     name: "Awani Rashmi", 
     role: "Frontend Developer", 
     bio: "Responsible for crafting intuitive, clean, and functional user interfaces. Focused on translating complex systems into simple, usable experiences that feel calm, reliable, and easy to navigate for non-technical users.", 
-    img: "/team/" // Leave empty to show initials
+    img: "/team/member5.jpg" // Leave empty to show initials
   },
   { 
     name: "Ghanan Dhamija", 
     role: "Product Designer", 
     bio: "Works on visual identity, layout systems, and design consistency across the platform. Ensures the product communicates clarity, trust, and professionalism through thoughtful design choices.", 
-    img: "/team/" // Leave empty to show initials
+    img: "/team/member5.jpg" // Leave empty to show initials
   },
   { 
     name: "Srinjoy Debnath", 
     role: "Product Designer", 
     bio: "Works on visual identity, layout systems, and design consistency across the platform. Ensures the product communicates clarity, trust, and professionalism through thoughtful design choices.", 
-    img: "/team/" // Leave empty to show initials
+    img: "/team/member4.jpg" // Leave empty to show initials
   },
   { 
     name: "Om Suryawanshi", 
