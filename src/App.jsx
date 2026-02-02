@@ -58,7 +58,7 @@ const TEAM_MEMBERS = [
     name: "Arkajyoti Roy", 
     role: "Frontend Developer", 
     bio: "Responsible for crafting intuitive, clean, and functional user interfaces.", 
-    img: "/team/member4.jpg", 
+    img: "/team/member5.jpeg", 
     linkedin: "#"
   },
   { 
