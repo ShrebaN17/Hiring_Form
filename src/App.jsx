@@ -30,7 +30,7 @@ const TEAM_MEMBERS = [
     name: "Priyangshu Dey", 
     role: "Co-Founder / CEO", 
     bio: "Focused on building reliable, trust-first products that solve real operational problems. Leads product direction, vision, and long-term strategy.", 
-    img: "/team/member1.jpg",
+    img: "/team/member1.jpeg",
     linkedin: "https://www.linkedin.com/in/priyangshu-dey-371608275/" 
   },
   { 
@@ -58,7 +58,7 @@ const TEAM_MEMBERS = [
     name: "Arkajyoti Roy", 
     role: "Frontend Developer", 
     bio: "Responsible for crafting intuitive, clean, and functional user interfaces.", 
-    img: "/team/member4.jpg", 
+    img: "/team/member5.jpeg", 
     linkedin: "#"
   },
   { 
@@ -72,7 +72,7 @@ const TEAM_MEMBERS = [
     name: "Ghanan Dhamija", 
     role: "Product Designer", 
     bio: "Works on visual identity, layout systems, and design consistency across the platform.", 
-    img: "/team/member5.jpg",
+    img: "/team/member7.jpeg",
     linkedin: "#"
   },
   { 
