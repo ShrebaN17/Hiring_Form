@@ -30,7 +30,7 @@ const TEAM_MEMBERS = [
     name: "Priyangshu Dey", 
     role: "Co-Founder / CEO", 
     bio: "Focused on building reliable, trust-first products that solve real operational problems. Leads product direction, vision, and long-term strategy.", 
-    img: "/team/member1.jpeg",
+    img: "/team/member1.jpg",
     linkedin: "https://www.linkedin.com/in/priyangshu-dey-371608275/" 
   },
   { 
@@ -58,7 +58,7 @@ const TEAM_MEMBERS = [
     name: "Arkajyoti Roy", 
     role: "Frontend Developer", 
     bio: "Responsible for crafting intuitive, clean, and functional user interfaces.", 
-    img: "/team/member5.jpeg", 
+    img: "/team/member4.jpg", 
     linkedin: "#"
   },
   { 
@@ -71,14 +71,14 @@ const TEAM_MEMBERS = [
   { 
     name: "Ghanan Dhamija", 
     role: "Product Designer", 
-    bio: "Ensures the product communicates clarity, trust, and professionalism through thoughtful design.", 
-    img: "/team/member7.jpeg",
+    bio: "Works on visual identity, layout systems, and design consistency across the platform.", 
+    img: "/team/member5.jpg",
     linkedin: "#"
   },
   { 
     name: "Srinjoy Debnath", 
     role: "Product Designer", 
-    bio: "Works on visual identity, layout systems, and design consistency across the platform.", 
+    bio: "Ensures the product communicates clarity, trust, and professionalism through thoughtful design.", 
     img: "/team/member8.jpg",
     linkedin: "https://www.linkedin.com/in/srinjoy-debnath-a27470266/"
   },
@@ -241,7 +241,7 @@ const SunIcon = () => (<svg width="20" height="20" viewBox="0 0 24 24" fill="non
 const MoonIcon = () => (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>);
 
 // ──────────────────────────────────────────
-// 4. ADMIN PANEL (UPDATED - LOGS & STATUS)
+// 4. ADMIN PANEL
 // ──────────────────────────────────────────
 function AdminPanel() {
   const [session, setSession] = useState(null);
@@ -253,6 +253,7 @@ function AdminPanel() {
   const [filter, setFilter] = useState("all"); 
   const [logs, setLogs] = useState([]);
   const [showLogs, setShowLogs] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(""); 
 
   useEffect(() => {
     if (!supabase) { 
@@ -289,7 +290,7 @@ function AdminPanel() {
       .from('access_logs')
       .select('*')
       .order('login_time', { ascending: false })
-      .limit(20);
+      .limit(30); 
       
     if (!error) {
         setLogs(data);
@@ -306,7 +307,6 @@ function AdminPanel() {
     
     if (error) alert("Error updating: " + error.message);
     else {
-        // Optimistic update
         setApplicants(applicants.map(app => app.id === id ? { ...app, status } : app));
     }
   };
@@ -339,7 +339,6 @@ function AdminPanel() {
       alert(error.message); 
       setLoading(false); 
     } else {
-      // LOG THE LOGIN
       await supabase.from('access_logs').insert([{ admin_email: authEmail }]);
       window.location.reload(); 
     }
@@ -352,9 +351,12 @@ function AdminPanel() {
   };
 
   const filteredApplicants = applicants.filter(app => {
-      if (filter === 'all') return true;
+      const matchesSearch = (app.name || "").toLowerCase().includes(searchTerm.toLowerCase()) || 
+                            (app.email || "").toLowerCase().includes(searchTerm.toLowerCase());
+      
+      if (filter === 'all') return matchesSearch;
       const status = app.status || 'pending'; 
-      return status === filter;
+      return status === filter && matchesSearch;
   });
 
   if (!supabase) return <div style={{padding: 50, textAlign:'center'}}>⚠️ Critical Error: Missing Supabase Keys. Check .env file.</div>;
@@ -381,10 +383,21 @@ function AdminPanel() {
       <div style={{ width: '100%', maxWidth: 1200, margin: '0 auto', textAlign: 'left' }}>
         
         {/* DASHBOARD HEADER */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30, flexWrap: 'wrap', gap: 20 }}>
-          <h2 className="hero-title" style={{ fontSize: 32, margin: 0 }}>Dashboard</h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, flexWrap: 'wrap', gap: 20 }}>
+          <div>
+            <h2 className="hero-title" style={{ fontSize: 32, margin: 0 }}>Dashboard</h2>
+            <p style={{ color: "var(--text-sub)", fontSize: 13, marginTop: 5 }}>{applicants.length} Total Applicants</p>
+          </div>
           
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+             <input 
+                type="text" 
+                placeholder="Search name or email..." 
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{ ...inputStyle(false), width: 200, padding: '8px 12px', height: 36, fontSize: 13 }}
+             />
+
              {['all', 'pending', 'good', 'bad'].map(f => (
                  <button 
                     key={f}
@@ -405,7 +418,6 @@ function AdminPanel() {
                  </button>
              ))}
              
-             {/* ACCESS LOGS BUTTON */}
              <button onClick={fetchLogs} style={{ background: 'transparent', border: '1px solid var(--border)', color: 'var(--text)', padding: '8px 12px', borderRadius: 6, cursor: 'pointer', marginLeft: 10, fontSize: 13 }}>
                 {showLogs ? "Hide Logs" : "🕒 Logs"}
              </button>
@@ -414,17 +426,30 @@ function AdminPanel() {
           </div>
         </div>
 
-        {/* LOGS VIEW */}
+        {/* LOGS TABLE */}
         {showLogs && (
-            <div className="glass-box" style={{ marginTop: 0, marginBottom: 20, padding: 20, animation: 'fadeIn 0.3s ease' }}>
-                <h3 style={{ fontSize: 16, marginTop: 0, marginBottom: 15 }}>Recent Access</h3>
-                <div style={{ maxHeight: 200, overflowY: 'auto' }}>
-                    {logs.length === 0 ? <p style={{opacity:0.5, fontSize:13}}>No logs yet.</p> : logs.map(log => (
-                        <div key={log.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, borderBottom: '1px solid var(--border)', padding: '8px 0' }}>
-                            <span>{log.admin_email}</span>
-                            <span style={{ opacity: 0.5 }}>{new Date(log.login_time).toLocaleString()}</span>
-                        </div>
-                    ))}
+            <div className="glass-box" style={{ marginTop: 0, marginBottom: 20, padding: 0, overflow: 'hidden', animation: 'fadeIn 0.3s ease' }}>
+                <div style={{ padding: "15px 20px", borderBottom: '1px solid var(--border)', background: 'rgba(255,255,255,0.02)' }}>
+                    <h3 style={{ fontSize: 14, margin: 0, textTransform: 'uppercase', letterSpacing: 1, opacity: 0.7 }}>Access History</h3>
+                </div>
+                <div style={{ maxHeight: 250, overflowY: 'auto' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+                        <thead style={{ background: 'rgba(0,0,0,0.2)', textAlign: 'left' }}>
+                            <tr>
+                                <th style={{ padding: 12, opacity: 0.6, fontWeight: 500 }}>User Email</th>
+                                <th style={{ padding: 12, opacity: 0.6, fontWeight: 500 }}>Login Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {logs.length === 0 ? <tr><td colSpan="2" style={{ padding: 20, textAlign:'center', opacity:0.5 }}>No logs found.</td></tr> : 
+                            logs.map(log => (
+                                <tr key={log.id} style={{ borderBottom: '1px solid var(--border)' }}>
+                                    <td style={{ padding: '10px 12px' }}>{log.admin_email}</td>
+                                    <td style={{ padding: '10px 12px', opacity: 0.5 }}>{new Date(log.login_time).toLocaleString()}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         )}
@@ -432,7 +457,7 @@ function AdminPanel() {
         {/* APPLICANTS GRID */}
         {loading ? <p style={{textAlign: 'center', opacity: 0.5}}>Loading data...</p> : (
           <div style={{ display: 'grid', gap: 15, gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))' }}>
-            {filteredApplicants.length === 0 && <p style={{opacity:0.5}}>No applicants found.</p>}
+            {filteredApplicants.length === 0 && <p style={{opacity:0.5}}>No applicants found matching your filters.</p>}
             {filteredApplicants.map(app => {
               const status = app.status || 'pending';
               const borderColor = status === 'good' ? '#4CAF50' : status === 'bad' ? '#f44336' : 'var(--border)';
@@ -448,6 +473,7 @@ function AdminPanel() {
                     display: 'flex', 
                     flexDirection: 'column',
                     border: `1px solid ${borderColor}`,
+                    boxShadow: status === 'good' ? '0 0 15px -5px rgba(76, 175, 80, 0.3)' : 'none',
                     transition: 'all 0.3s ease'
                 }} 
                 onClick={() => setExpandedId(expandedId === app.id ? null : app.id)}
@@ -495,7 +521,7 @@ function AdminPanel() {
                   <div style={{ marginTop: 15, paddingTop: 15, borderTop: '1px solid var(--border)', fontSize: 14, lineHeight: 1.6, animation: 'fadeIn 0.3s ease' }}>
                     <p><strong>Phone:</strong> {app.phone}</p>
                     <p><strong>College:</strong> {app.college} ({app.year})</p>
-                    <span style={{ fontSize: 12, opacity: 0.4, display: 'block', marginBottom: 15 }}>Applied: {new Date(app.created_at).toLocaleDateString()}</span>
+                    <span style={{ fontSize: 12, opacity: 0.4, display: 'block', marginBottom: 15 }}>Applied: {new Date(app.created_at).toLocaleDateString()} at {new Date(app.created_at).toLocaleTimeString()}</span>
 
                     <div style={{ marginTop: 15 }}>
                       <strong style={{ display:'block', marginBottom: 5, fontSize: 12, opacity: 0.5, textTransform: 'uppercase' }}>Role Specifics</strong>
@@ -537,7 +563,9 @@ function FixedHeader({ onNavigate, theme, toggleTheme }) {
   return (
     <div className="fixed-header">
       <div className="header-content">
-        <div className="logo-text" onClick={() => handleNav("landing")}>AAKAAR.io</div>
+        <div className="logo-text" onClick={() => handleNav("landing")}>
+          <span style={{ color: 'var(--text)' }}>aakaar</span><span style={{ color: 'var(--accent)' }}>IO</span>
+        </div>
         <div className="header-nav">
           <button className="header-link" onClick={() => handleNav("landing")}>Home</button>
           <button className="header-link" onClick={() => handleNav("about")}>About Us</button>
@@ -596,7 +624,9 @@ function Footer() {
     <footer className="site-footer">
       <div className="footer-content-wrapper">
         <div className="footer-col">
-          <div className="logo-text" style={{ color: "#ff5a3c", marginBottom: 20, fontSize: 24 }}>AAKAAR.io</div>
+          <div className="logo-text" style={{ marginBottom: 20, fontSize: 24 }}>
+            <span style={{ color: 'var(--text)' }}>aakaar</span><span style={{ color: 'var(--accent)' }}>IO</span>
+          </div>
           <div className="contact-item"><span style={{ color: "var(--text-muted)", fontSize: 12 }}>Email</span><div style={{ marginTop: 4 }}>support@aakario.com</div></div>
           <div className="contact-item"><span style={{ color: "var(--text-muted)", fontSize: 12 }}>Phone</span><div style={{ marginTop: 4 }}>+91 8280669173</div></div>
           
