@@ -57,28 +57,28 @@ const TEAM_MEMBERS = [
   { 
     name: "Arkajyoti Roy", 
     role: "Frontend Developer", 
-    bio: "Responsible for crafting intuitive, clean, and functional user interfaces.", 
+    bio: "Focused on translating complex systems into simple, usable experiences that feel calm and reliable.", 
     img: "/team/member5.jpeg", 
     linkedin: "#"
   },
   { 
     name: "Awani Rashmi", 
-    role: "Frontend Developer", 
-    bio: "Focused on translating complex systems into simple, usable experiences that feel calm and reliable.", 
+    role: "UI/UX Developer", 
+    bio: "Responsible for crafting intuitive, clean, and functional user interfaces.", 
     img: "/team/member6.jpg",
     linkedin: "https://www.linkedin.com/in/awani-rashmi-031463320/"
   },
   { 
     name: "Ghanan Dhamija", 
-    role: "Product Designer", 
-    bio: "Works on visual identity, layout systems, and design consistency across the platform.", 
+    role: "Graphic Designer", 
+    bio: "Ensures the product communicates clarity, trust, and professionalism through thoughtful design.", 
     img: "/team/member7.jpeg",
     linkedin: "#"
   },
   { 
     name: "Srinjoy Debnath", 
     role: "Product Designer", 
-    bio: "Ensures the product communicates clarity, trust, and professionalism through thoughtful design.", 
+    bio: "Works on visual identity, layout systems, and design consistency across the platform.", 
     img: "/team/member8.jpg",
     linkedin: "https://www.linkedin.com/in/srinjoy-debnath-a27470266/"
   },
