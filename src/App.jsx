@@ -70,7 +70,7 @@ const TEAM_MEMBERS = [
   },
   { 
     name: "Ghanan Dhamija", 
-    role: "Graphic Designer", 
+    role: "UI/UX Designer", 
     bio: "Ensures the product communicates clarity, trust, and professionalism through thoughtful design.", 
     img: "/team/member7.jpeg",
     linkedin: "#"
